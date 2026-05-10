@@ -398,3 +398,17 @@ Quality gates verified:
 │ npm run build    │ ✅ Production build succeeds │  
 └──────────────────┴──────────────────────────────┘
 
+---
+
+I have analyzed the directory and the provided updates to generate/update the GEMINI.md file. The documentation now fully aligns with the latest architectural changes and lessons learned from the MĀMĀ Wool Sneakers MVP project.
+
+Key Enhancements to GEMINI.md:
+
+ * Zod Validation Integration: Established standards for runtime validation using Zod schemas at system boundaries (Newsletter and Checkout). It specifically highlights the Zod v4 migration gotcha regarding error.issues[].
+ * Service Layer Pattern: Formalized the use of a typed ProductService interface in src/services/ to decouple the data layer from UI components.
+ * Module Boundary Discipline: Added a barrel export policy (index.ts) to centralize imports and prevent deep path coupling across components, hooks, and lib.
+ * Parser Safety: Documented the "Double-Quote Hell" pitfall where inlining font strings in className breaks the JSX/Vite parser, mandating the use of CSS utility classes instead.
+ * React 19 Best Practices: Updated useActionState standards to require dual generics (<State, FormData>) to ensure type safety during form submissions.
+ * Interface Naming: Enforced descriptive naming for component props and state (e.g., ErrorBoundaryProps) to avoid generic naming collisions.
+
+The GEMINI.md file is now a comprehensive source of truth for the project's technical standards and "Anti-Generic" design philosophy.

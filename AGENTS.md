@@ -12,7 +12,8 @@ This file serves as the foundational instructional context for all AI agent inte
 - **Build Tool**: Vite 8 (utilizing the Rolldown engine)
 - **Styling**: Tailwind CSS v4 (CSS-first configuration via `@theme inline` in `globals.css`)
 - **Routing**: TanStack Router 1.169 (File-based, type-safe routing)
-- **State Management**: Zustand 5 (Flat stores; `useCartStore` with persistence, `useUIStore` for ephemeral state)
+- **State Management**: Zustand 5 (Flat stores)
+- **Validation**: Zod 4 (Runtime schema validation at system boundaries)
 - **Testing**: Vitest 4 (jsdom environment, TDD focused)
 
 ---
@@ -31,7 +32,7 @@ Every task **must** strictly follow this six-phase workflow:
 ### Anti-Generic Design Philosophy
 - **Distinctive Identity**: Reject "AI slop" and generic templates.
 - **Typography**: Cormorant Garamond (Display), DM Sans (Body), Space Grotesk (Accent labels).
-- **Color Palette**: Use only the bespoke wool-palette tokens defined in `src/globals.css` (Warm White, Cream, Oat, Fog, Wool). No arbitrary hex literals.
+- **Color Palette**: Use only the bespoke wool-palette tokens defined in `src/globals.css`. No arbitrary hex literals.
 - **Atmosphere**: Quiet luxury—low-saturation tones, generous whitespace (120-160px section padding), and a subtle grain overlay.
 
 ---
@@ -40,22 +41,18 @@ Every task **must** strictly follow this six-phase workflow:
 
 ### React & TypeScript
 - **Strict Typing**: Never use `any`. Prefer `interface` for shapes and `type` for unions/intersections.
-- **Form Primitives**: Use `forwardRef` for reusable components.
-- **Async Operations**: All async buttons must handle `isPending` states with disabled attributes and loading indicators.
-- **Error Handling**: Use the provided `ErrorBoundary` wrapper.
+- **Naming Conventions**: Use descriptive interface names (e.g., `ErrorBoundaryProps` instead of `Props`).
+- **Async Operations**: All async buttons must handle `isPending` states. `useActionState` requires two generics when using `FormData`: `useActionState<State, FormData>`.
+- **Barrel Exports**: Use `index.ts` files in core directories (`components`, `hooks`, `lib`) to centralize exports and decouple deep paths.
 
-### Tailwind CSS v4 Discipline
-- **Configuration**: All design tokens live in `src/globals.css`. Do not create a `tailwind.config.js`.
-- **Custom Tokens**: Extend the `@theme` block for colors, fonts, and spacing.
-- **Responsive**: Mobile-first approach (`sm:`, `md:`, `lg:`).
+### Validation & Services
+- **Runtime Validation**: Use Zod schemas in `src/lib/schemas.ts` for all form boundaries. 
+    - **Gotcha**: Zod v4 uses `error.issues[]`, not `error.errors[]`.
+- **Service Layer**: Decouple data fetching/logic using typed interfaces in `src/services/`. Consuming components should interact with service contracts (e.g., `ProductService`), not raw data.
 
-### State Management (Zustand)
-- **Selectors**: Always use selectors for subscriptions (e.g., `const count = useCartStore(s => s.items.length)`).
-- **External Actions**: Store-to-store calls are allowed only inside store actions (using `.getState()`).
-
-### Routing (TanStack Router)
-- **Generation**: Run `npx tsr generate` after every route change.
-- **Loaders**: Fetch data in route loaders to ensure type safety and prevent waterfalls.
+### Styling Discipline (Tailwind v4)
+- **Custom Tokens**: Extend `@theme` in `src/globals.css`. 
+- **Anti-Pattern**: Avoid inlining `font-family` strings with double quotes in `className` (e.g., `font-["DM_Sans"]`). This breaks the JSX/Vite parser. Use utility classes defined in the `@layer utilities` block instead.
 
 ---
 
@@ -64,28 +61,25 @@ Every task **must** strictly follow this six-phase workflow:
 ### Key Commands
 | Command | Purpose |
 |---------|---------|
-| `npm run dev` | Start Vite dev server (port 5173) |
-| `npm run build` | Full production build (runs `tsc` first) |
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Production build (runs `tsc` first) |
 | `npm test` | Run Vitest in watch mode |
-| `npx tsr generate` | Regenerate route tree (crucial for TanStack Router) |
-| `npx tsc --noEmit` | Manual TypeScript check |
+| `npx tsr generate` | Regenerate route tree (Required after route/style changes) |
 
-### Quality Gate (Order of Execution)
-1. `npx tsc --noEmit` (Must pass)
-2. `npx vitest run` (Must pass)
-3. `npm run build` (Must pass)
+### Quality Gate
+1. `npx tsc --noEmit`
+2. `npx vitest run`
+3. `npm run build`
 
 ---
 
 ## 5. Directory Structure Overview
 
-- `src/components/ui/`: Primitive UI components (buttons, inputs, etc.).
-- `src/components/layout/`: Global structural components (Navbar, Footer).
-- `src/components/sections/`: Content-heavy landing page sections.
-- `src/routes/`: File-based routes (root, home, products, cart, checkout).
+- `src/components/`: Barrel exported via `index.ts`. Subdirs: `ui`, `layout`, `sections`, `cart`.
+- `src/services/`: Service interfaces and implementations (e.g., `products.ts`).
+- `src/lib/`: Utilities, constants, and Zod `schemas.ts`.
+- `src/routes/`: TanStack Router file-based routes.
 - `src/stores/`: Zustand store definitions.
-- `src/lib/`: Utilities, formatting, and product data.
-- `src/test/`: Test suites and setup configurations.
 
 ---
 
@@ -94,4 +88,13 @@ Every task **must** strictly follow this six-phase workflow:
 - **Coverage**: Focus on store logic (`cart.store.test.ts`, `ui.store.test.ts`) and complex utils.
 - **Mocks**: Mock browser APIs (rAF, IntersectionObserver) in `src/test/setup.ts`.
 
+---
+
+## 7. Lessons Learned & Troubleshooting
+
+- **Parser Conflicts**: Nested quotes in `className` (specifically for fonts) cause `npx tsr generate` and Vite build failures. Use CSS variables or utility classes.
+- **State Hydration**: Always use a hydration guard for persisted Zustand stores to prevent SSR/CSR mismatches.
+- **Action State**: When using `FormData`, ensure the second generic is passed: `useActionState<State, FormData>(action, initialState)`.
+
 Refer to `CLAUDE.md` and `AGENTS.md` for more granular implementation details and anti-patterns.
+
