@@ -8,3 +8,7 @@ awesome meticulous job so far. please keep up the good work. now, please use sil
 
 awesome meticulous job so far. please update @README.md and @CLAUDE.md with the recent changes to the codebase, lessons learnt, troubleshooting tips, new anti-patterns and pitfalls to avoid.
 
+---
+
+awesome meticulous job so far. please keep up the good work. now, review the changes to @README.md as captured in @recent_updates.md and restore back relevant sections and lines that are still valid with the recent code changes.
+
