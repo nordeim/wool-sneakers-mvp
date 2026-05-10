@@ -3196,8 +3196,6 @@ function CartPage() {
                 </Link>
                 <button
                   onClick={clearCart}
-                  className="font-accent text-xs tracking-wid
-```tsx
                   className="font-accent text-xs tracking-widest uppercase font-medium text-wool-500 border-1.5 border-fog-200 rounded-full px-6 py-4 hover:border-wool-500 hover:text-wool-900 transition-all duration-300"
                 >
                   Clear
