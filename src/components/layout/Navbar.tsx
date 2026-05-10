@@ -28,7 +28,7 @@ export function Navbar() {
       <div className="container mx-auto max-w-[1280px] px-6 flex items-center justify-between h-[72px]">
         <Link
           to="/"
-          className="font-["Cormorant_Garamond",serif] text-[1.6rem] font-medium tracking-[0.15em] text-[#3D3835]"
+          className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-[#3D3835]"
         >
           MĀMĀ
         </Link>
@@ -42,13 +42,13 @@ export function Navbar() {
           <NavLink to="/about">About</NavLink>
           <a
             href="#features"
-            className="font-["Space_Grotesk",sans-serif] text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+            className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
           >
             Why Wool
           </a>
           <a
             href="#sg-story"
-            className="font-["Space_Grotesk",sans-serif] text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+            className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
           >
             Singapore
           </a>
@@ -68,7 +68,7 @@ export function Navbar() {
             <span
               className={cn(
                 'absolute top-0 right-0 min-w-[18px] h-[18px] rounded-full',
-                'bg-[#3D3835] text-[#F7F4F0] font-["Space_Grotesk",sans-serif] text-[0.55rem] font-semibold',
+                'bg-[#3D3835] text-[#F7F4F0] font-accent text-[0.55rem] font-semibold',
                 'flex items-center justify-center px-1',
                 'transition-all duration-300',
                 cartCount > 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'
@@ -114,7 +114,7 @@ function NavLink({
   return (
     <Link
       to={to}
-      className="font-["Space_Grotesk",sans-serif] text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+      className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
     >
       {children}
     </Link>

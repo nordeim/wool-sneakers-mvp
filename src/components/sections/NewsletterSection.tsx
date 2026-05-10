@@ -1,4 +1,4 @@
-import { useActionState, useRef, useEffect, useState } from 'react'
+import { useActionState, useState } from 'react'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,11 +9,10 @@ interface FormState {
 }
 
 export function NewsletterSection() {
-  const formRef = useRef<HTMLFormElement>(null)
   const [email, setEmail] = useState('')
 
-  const [state, formAction, isPending] = useActionState(
-    async (prev: FormState, formData: FormData): Promise<FormState> => {
+  const [state, formAction, isPending] = useActionState<FormState, FormData>(
+    async (_prevState: FormState, formData: FormData): Promise<FormState> => {
       const emailValue = formData.get('email') as string
       if (!emailValue?.includes('@')) {
         return { message: 'Please enter a valid email.', type: 'error' }
@@ -26,12 +25,6 @@ export function NewsletterSection() {
     },
     { message: '', type: 'idle' }
   )
-
-  useEffect(() => {
-    if (state.type === 'success') {
-      setEmail('')
-    }
-  }, [state.type])
 
   return (
     <section
@@ -52,12 +45,12 @@ export function NewsletterSection() {
       />
       <div className="container mx-auto max-w-[1280px] px-6 relative z-[2]">
         <ScrollReveal>
-          <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#8C8580] mb-3">
+          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#8C8580] mb-3">
             Stay in the Loop
           </p>
           <h2
             id="cta-heading"
-            className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4"
+            className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4"
           >
             Step Into Comfort
           </h2>
@@ -66,7 +59,6 @@ export function NewsletterSection() {
             colourways, and the science behind our wool.
           </p>
           <form
-            ref={formRef}
             action={formAction}
             className="flex flex-col sm:flex-row gap-3 max-w-[440px] mx-auto"
           >
@@ -91,8 +83,10 @@ export function NewsletterSection() {
           </form>
           {state.type !== 'idle' && (
             <p
-              className={`mt-4 text-sm font-["Space_Grotesk",sans-serif] ${
-                state.type === 'error' ? 'text-red-600' : 'text-[#3D3835]'
+              className={`mt-4 text-sm font-accent ${
+                state.type === 'error'
+                  ? 'text-red-600'
+                  : 'text-[#3D3835]'
               }`}
               role="status"
               aria-live="polite"

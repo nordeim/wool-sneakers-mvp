@@ -21,12 +21,12 @@ export function HeroSection() {
         aria-hidden="true"
       />
       <div className="container mx-auto max-w-[1280px] px-6 relative z-[2] max-w-[640px] py-16 md:py-0">
-        <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-4">
+        <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-4">
           Singapore-Born Wool Sneakers
         </p>
         <h1
           id="hero-heading"
-          className="font-["Cormorant_Garamond",serif] text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.15] tracking-tight mb-6"
+          className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.15] tracking-tight mb-6"
         >
           Wool, <em className="italic text-[#B5A288]">Reimagined</em>
           <br />
@@ -55,7 +55,7 @@ export function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-70 transition-opacity"
         aria-hidden="true"
       >
-        <span className="font-["Space_Grotesk",sans-serif] text-[0.6rem] tracking-[0.15em] uppercase text-[#B5AFA9]">
+        <span className="font-accent text-[0.6rem] tracking-[0.15em] uppercase text-[#B5AFA9]">
           Scroll
         </span>
         <div className="w-px h-10 bg-gradient-to-b from-[#B5AFA9] to-transparent animate-pulse" />

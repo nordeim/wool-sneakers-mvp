@@ -50,19 +50,19 @@ export function BrandStorySection() {
                 </defs>
                 <rect width="400" height="500" fill="url(#wool)" />
               </svg>
-              <span className="absolute bottom-8 left-6 font-["Space_Grotesk",sans-serif] text-[0.6rem] tracking-[0.15em] uppercase text-[#6B6460] opacity-60">
+              <span className="absolute bottom-8 left-6 font-accent text-[0.6rem] tracking-[0.15em] uppercase text-[#6B6460] opacity-60">
                 Merino Wool Fibre &middot; 18.5&mu;m
               </span>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <div>
-              <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
                 Our Philosophy
               </p>
               <h2
                 id="brand-heading"
-                className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-6"
+                className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-6"
               >
                 Born from the belief that comfort should never compromise style
               </h2>

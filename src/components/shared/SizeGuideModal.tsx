@@ -52,7 +52,7 @@ export function SizeGuideModal() {
           )}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-["Cormorant_Garamond",serif] text-[1.5rem]">Size Guide</h2>
+            <h2 className="font-display text-[1.5rem]">Size Guide</h2>
             <button
               onClick={close}
               className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#EDE5D8]"
@@ -82,7 +82,7 @@ export function SizeGuideModal() {
                   {['EU', 'UK', 'US Men', 'US Women', 'CM'].map((h) => (
                     <th
                       key={h}
-                      className="font-["Space_Grotesk",sans-serif] text-[0.65rem] tracking-widest uppercase text-[#8C8580] py-3 px-2 text-left"
+                      className="font-accent text-[0.65rem] tracking-widest uppercase text-[#8C8580] py-3 px-2 text-left"
                     >
                       {h}
                     </th>
@@ -92,7 +92,7 @@ export function SizeGuideModal() {
               <tbody>
                 {sizes.map((row) => (
                   <tr key={row.eu} className="border-b border-[#F5F0E8]">
-                    <td className="font-["Space_Grotesk",sans-serif] font-medium py-2.5 px-2">
+                    <td className="font-accent font-medium py-2.5 px-2">
                       {row.eu}
                     </td>
                     <td className="text-[#8C8580] py-2.5 px-2">{row.uk}</td>

@@ -113,6 +113,15 @@
     z-index: var(--z-grain);
     opacity: 0.5;
   }
+  .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .font-body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  }
+  .font-accent {
+    font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  }
 }
 
 /* Reduced Motion */

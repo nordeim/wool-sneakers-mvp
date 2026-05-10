@@ -36,12 +36,12 @@ export function TestimonialsSection() {
       <div className="container mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
               What Singapore Says
             </p>
             <h2
               id="testimonials-heading"
-              className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight"
+              className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight"
             >
               Trusted by 12,000+ Pairs of Feet
             </h2>
@@ -66,12 +66,12 @@ export function TestimonialsSection() {
                     </svg>
                   ))}
                 </div>
-                <blockquote className="font-["Cormorant_Garamond",serif] text-[1.05rem] italic leading-relaxed text-[#6B6460] mb-6">
+                <blockquote className="font-display text-[1.05rem] italic leading-relaxed text-[#6B6460] mb-6">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-["Cormorant_Garamond",serif] text-[0.85rem] font-medium text-[#F7F4F0] ${t.bg}`}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center font-display text-[0.85rem] font-medium text-[#F7F4F0] ${t.bg}`}
                   >
                     {t.initials}
                   </div>

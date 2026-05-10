@@ -14,7 +14,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block font-["Space_Grotesk",sans-serif] text-[0.7rem] uppercase tracking-widest text-[#8C8580] mb-2"
+            className="block font-accent text-[0.7rem] uppercase tracking-widest text-[#8C8580] mb-2"
           >
             {label}
           </label>
@@ -25,7 +25,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             'w-full px-5 py-3.5 rounded-full',
             'bg-white/10 border border-[#C5C0B8]',
-            'text-[#3D3835] font-["DM_Sans",sans-serif] text-[0.9rem]',
+            'text-[#3D3835] font-body text-[0.9rem]',
             'placeholder:text-[#B5AFA9]',
             'transition-colors duration-300',
             'focus:border-[#C5B49A] focus:outline-none',
@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error && (
-          <p className="mt-1.5 text-red-500 text-xs font-["Space_Grotesk",sans-serif]">{error}</p>
+          <p className="mt-1.5 text-red-500 text-xs font-accent">{error}</p>
         )}
       </div>
     )

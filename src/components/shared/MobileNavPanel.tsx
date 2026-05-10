@@ -93,7 +93,7 @@ function MobileNavLink({
     <Link
       to={to}
       onClick={onClick}
-      className="font-["Cormorant_Garamond",serif] text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
+      className="font-display text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
     >
       {children}
     </Link>
@@ -113,7 +113,7 @@ function MobileAnchorLink({
     <a
       href={href}
       onClick={onClick}
-      className="font-["Cormorant_Garamond",serif] text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
+      className="font-display text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
     >
       {children}
     </a>

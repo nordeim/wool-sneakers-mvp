@@ -58,7 +58,7 @@ function CartPanelContent({ close }: { close: () => void }) {
   return (
     <>
       <div className="flex items-center justify-between px-6 py-5 border-b border-[#E0D4C2]">
-        <h3 className="font-["Cormorant_Garamond",serif] text-[1.1rem]">
+        <h3 className="font-display text-[1.1rem]">
           Your Cart
         </h3>
         <button
@@ -99,7 +99,7 @@ function CartPanelContent({ close }: { close: () => void }) {
             <p className="text-[0.9rem] mb-4">Your cart is empty</p>
             <button
               onClick={close}
-              className="font-["Space_Grotesk",sans-serif] text-xs tracking-widest uppercase text-[#6B6460] border border-[#C5C0B8] rounded-full px-5 py-2.5 hover:border-[#6B6460] hover:text-[#3D3835] transition-all"
+              className="font-accent text-xs tracking-widest uppercase text-[#6B6460] border border-[#C5C0B8] rounded-full px-5 py-2.5 hover:border-[#6B6460] hover:text-[#3D3835] transition-all"
             >
               Start Shopping
             </button>
@@ -116,7 +116,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                   style={{ background: item.gradient }}
                 />
                 <div className="flex-1 flex flex-col justify-center">
-                  <div className="font-["Cormorant_Garamond",serif] text-[0.95rem]">
+                  <div className="font-display text-[0.95rem]">
                     {item.name}
                   </div>
                   <div className="text-[0.75rem] text-[#B5AFA9] mb-1.5">
@@ -147,7 +147,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                           <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                       </button>
-                      <span className="w-8 text-center font-["Space_Grotesk",sans-serif] text-[0.75rem] font-medium border-x border-[#C5C0B8] leading-[28px]">
+                      <span className="w-8 text-center font-accent text-[0.75rem] font-medium border-x border-[#C5C0B8] leading-[28px]">
                         {item.qty}
                       </span>
                       <button
@@ -175,7 +175,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                         </svg>
                       </button>
                     </div>
-                    <span className="font-["Space_Grotesk",sans-serif] text-[0.85rem] font-medium">
+                    <span className="font-accent text-[0.85rem] font-medium">
                       {formatPrice(item.price * item.qty)}
                     </span>
                   </div>
@@ -209,13 +209,13 @@ function CartPanelContent({ close }: { close: () => void }) {
         <div className="px-6 py-5 border-t border-[#E0D4C2] bg-[#FDFBF8]">
           <div className="flex justify-between mb-1.5 text-[0.9rem]">
             <span className="text-[#6B6460]">Subtotal</span>
-            <span className="font-["Space_Grotesk",sans-serif] font-semibold">
+            <span className="font-accent font-semibold">
               {formatPrice(subtotal)}
             </span>
           </div>
           <div className="flex justify-between mb-4 text-[0.8rem]">
             <span className="text-[#B5AFA9]">Shipping</span>
-            <span className="text-[#C5B49A] font-["Space_Grotesk",sans-serif] font-medium">
+            <span className="text-[#C5B49A] font-accent font-medium">
               Free
             </span>
           </div>
@@ -223,14 +223,14 @@ function CartPanelContent({ close }: { close: () => void }) {
             <Link
               to="/cart"
               onClick={close}
-              className="flex-1 font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-widest uppercase font-medium text-[#3D3835] border border-[#C5C0B8] rounded-full py-3 text-center hover:border-[#6B6460] transition-all"
+              className="flex-1 font-accent text-[0.7rem] tracking-widest uppercase font-medium text-[#3D3835] border border-[#C5C0B8] rounded-full py-3 text-center hover:border-[#6B6460] transition-all"
             >
               View Cart
             </Link>
             <Link
               to="/checkout"
               onClick={close}
-              className="flex-1 bg-[#3D3835] text-[#F7F4F0] font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-widest uppercase font-medium rounded-full py-3 text-center hover:bg-[#524C48] transition-colors"
+              className="flex-1 bg-[#3D3835] text-[#F7F4F0] font-accent text-[0.7rem] tracking-widest uppercase font-medium rounded-full py-3 text-center hover:bg-[#524C48] transition-colors"
             >
               Checkout
             </Link>

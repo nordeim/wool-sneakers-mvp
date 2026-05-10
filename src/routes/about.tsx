@@ -12,10 +12,10 @@ function AboutPage() {
     <div className="py-24 md:py-32">
       <div className="container mx-auto max-w-[1280px] px-6 max-w-[720px]">
         <ScrollReveal>
-          <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
             Our Story
           </p>
-          <h1 className="font-["Cormorant_Garamond",serif] text-[clamp(2.5rem,5vw,4rem)] leading-[1.15] tracking-tight mb-8">
+          <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.15] tracking-tight mb-8">
             Wool, born from<br />
             <em className="italic text-[#B5A288]">necessity</em>
           </h1>

@@ -80,12 +80,12 @@ export function FeaturesSection() {
       <div className="container mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
               Why Wool
             </p>
             <h2
               id="features-heading"
-              className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight"
+              className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight"
             >
               Natural Wool Meets Urban Function
             </h2>
@@ -98,7 +98,7 @@ export function FeaturesSection() {
                 <div className="w-14 h-14 rounded-xl bg-[#EDE5D8] flex items-center justify-center mb-6 group-hover:bg-[#E0D4C2] transition-colors">
                   {feat.icon}
                 </div>
-                <h3 className="font-["Cormorant_Garamond",serif] text-[1.15rem] mb-3">
+                <h3 className="font-display text-[1.15rem] mb-3">
                   {feat.title}
                 </h3>
                 <p className="text-[0.9rem] text-[#6B6460] leading-relaxed">

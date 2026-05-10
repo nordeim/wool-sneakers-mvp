@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <Link
               to="/"
-              className="font-["Cormorant_Garamond",serif] text-[1.6rem] font-medium tracking-[0.15em] text-[#F7F4F0] inline-block mb-4"
+              className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-[#F7F4F0] inline-block mb-4"
             >
               MĀMĀ
             </Link>
@@ -109,7 +109,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="font-["Space_Grotesk",sans-serif] text-[0.65rem] tracking-[0.14em] uppercase text-[#B5AFA9] mb-4">
+      <h4 className="font-accent text-[0.65rem] tracking-[0.14em] uppercase text-[#B5AFA9] mb-4">
         {title}
       </h4>
       <ul className="flex flex-col gap-2">

@@ -6,7 +6,7 @@ import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { SneakerSVG } from '@/components/shared/SneakerSVG'
 import { Badge } from '@/components/ui/badge'
 
-export const Route = createFileRoute('/products')({
+export const Route = createFileRoute('/products/')({
   component: ProductsPage,
 })
 
@@ -19,10 +19,10 @@ function ProductsPage() {
       <div className="container mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
               The Collection
             </p>
-            <h1 className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4">
+            <h1 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4">
               All Sneakers
             </h1>
             <p className="text-[#6B6460] max-w-[480px] mx-auto">
@@ -39,7 +39,7 @@ function ProductsPage() {
             id="sort"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="font-["Space_Grotesk",sans-serif] text-xs tracking-widest uppercase text-[#6B6460] bg-[#F5F0E8] border border-[#E0D4C2] rounded-full px-4 py-2 outline-none focus:border-[#C5B49A]"
+            className="font-accent text-xs tracking-widest uppercase text-[#6B6460] bg-[#F5F0E8] border border-[#E0D4C2] rounded-full px-4 py-2 outline-none focus:border-[#C5B49A]"
           >
             <option value="featured">Featured</option>
             <option value="price-asc">Price: Low to High</option>
@@ -84,13 +84,13 @@ function ProductsPage() {
                   />
                 </div>
                 <div className="p-6 bg-[#FDFBF8]">
-                  <h3 className="font-["Cormorant_Garamond",serif] text-[1.2rem] mb-0.5">
+                  <h3 className="font-display text-[1.2rem] mb-0.5">
                     {prod.name}
                   </h3>
                   <p className="text-[0.85rem] text-[#B5AFA9] mb-2">
                     {prod.description}
                   </p>
-                  <span className="font-["Space_Grotesk",sans-serif] text-[0.95rem] font-medium">
+                  <span className="font-accent text-[0.95rem] font-medium">
                     {formatPrice(prod.price)}
                   </span>
                 </div>

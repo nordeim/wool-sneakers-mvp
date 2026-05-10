@@ -20,12 +20,12 @@ export function SingaporeStorySection() {
         <div className="grid grid-cols-1 md:grid-cols-[5fr_4fr] gap-8 md:gap-12">
           <ScrollReveal>
             <div>
-              <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#C5B49A] mb-3">
+              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#C5B49A] mb-3">
                 The Singapore Proof
               </p>
               <h2
                 id="sg-heading"
-                className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight text-[#F7F4F0] mb-6"
+                className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight text-[#F7F4F0] mb-6"
               >
                 Engineered for{' '}
                 <em className="italic text-[#D4C4B0]">32°C</em>
@@ -55,10 +55,10 @@ export function SingaporeStorySection() {
                     key={stat.label}
                     className="text-center p-4 rounded-xl bg-white/[0.04] border border-white/[0.06]"
                   >
-                    <div className="font-["Cormorant_Garamond",serif] text-[2rem] font-light text-[#D4C4B0] mb-1">
+                    <div className="font-display text-[2rem] font-light text-[#D4C4B0] mb-1">
                       {stat.value}
                     </div>
-                    <div className="font-["Space_Grotesk",sans-serif] text-[0.6rem] tracking-[0.12em] uppercase text-[#B5AFA9]">
+                    <div className="font-accent text-[0.6rem] tracking-[0.12em] uppercase text-[#B5AFA9]">
                       {stat.label}
                     </div>
                   </div>
@@ -107,14 +107,14 @@ function ClimateCard() {
       ref={ref}
       className="bg-white/[0.04] border border-white/[0.08] rounded-[20px] p-8 w-full max-w-[360px]"
     >
-      <h3 className="font-["Cormorant_Garamond",serif] text-[1.1rem] text-[#F7F4F0] mb-6">
+      <h3 className="font-display text-[1.1rem] text-[#F7F4F0] mb-6">
         Singapore Climate Profile
       </h3>
       {bars.map((bar) => (
         <div key={bar.label} className="mb-5 last:mb-6">
           <div className="flex justify-between text-[0.8rem] mb-1.5">
             <span className="text-[#B5AFA9]">{bar.label}</span>
-            <span className="font-["Space_Grotesk",sans-serif] font-semibold text-[#D4C4B0]">
+            <span className="font-accent font-semibold text-[#D4C4B0]">
               {bar.value}
             </span>
           </div>

@@ -20,12 +20,12 @@ export function ProductGrid() {
       <div className="container mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
               The Collection
             </p>
             <h2
               id="products-heading"
-              className="font-["Cormorant_Garamond",serif] text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4"
+              className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4"
             >
               Every Step, Naturally Crafted
             </h2>
@@ -101,7 +101,7 @@ function ProductCard({ product }: { product: Product }) {
       </Link>
       <div className="p-6 bg-[#FDFBF8]">
         <Link to="/products/$slug" params={{ slug: product.slug }}>
-          <h3 className="font-["Cormorant_Garamond",serif] text-[1.2rem] mb-0.5">
+          <h3 className="font-display text-[1.2rem] mb-0.5">
             {product.name}
           </h3>
         </Link>
@@ -109,7 +109,7 @@ function ProductCard({ product }: { product: Product }) {
           {product.description}
         </p>
         <div className="flex items-center justify-between mb-3">
-          <span className="font-["Space_Grotesk",sans-serif] text-[0.95rem] font-medium">
+          <span className="font-accent text-[0.95rem] font-medium">
             {formatPrice(product.price)}
           </span>
           <div className="flex gap-1.5">
@@ -134,7 +134,7 @@ function ProductCard({ product }: { product: Product }) {
           onClick={handleAddToCart}
           disabled={isAdding}
           className={cn(
-            'w-full py-3 rounded-md font-["Space_Grotesk",sans-serif] text-[0.7rem] tracking-widest uppercase font-medium transition-all',
+            'w-full py-3 rounded-md font-accent text-[0.7rem] tracking-widest uppercase font-medium transition-all',
             isAdding
               ? 'bg-[#C5B49A] text-[#3D3835]'
               : 'bg-[#3D3835] text-[#F7F4F0] hover:bg-[#524C48] hover:-translate-y-px'
