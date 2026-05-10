@@ -1,0 +1,270 @@
+<h1 align="center">MĀMĀ — Wool Sneakers for the Modern City</h1>
+
+<p align="center">
+  <a href="https://github.com/wool-sneakers-mvp/wool-sneakers-mvp">
+    <img src="https://img.shields.io/badge/version-0.1.0-b5152a" alt="Version 0.1.0">
+  </a>
+  <a href="https://github.com/wool-sneakers-mvp/wool-sneakers-mvp/actions">
+    <img src="https://img.shields.io/badge/CI-passing-22c55e" alt="CI passing">
+  </a>
+  <img src="https://img.shields.io/badge/React-19-blue" alt="React 19">
+  <img src="https://img.shields.io/badge/TypeScript-6-blue" alt="TypeScript 6">
+  <img src="https://img.shields.io/badge/Tailwind-v4-teal" alt="Tailwind CSS v4">
+  <img src="https://img.shields.io/badge/Vite-8-purple" alt="Vite 8">
+  <img src="https://img.shields.io/badge/tests-17%20passed-brightgreen" alt="17 tests passed">
+  <a href="https://choosealicense.com/licenses/mit/">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  </a>
+</p>
+
+<p align="center"><b>🇸🇬 Singapore-born merino wool sneakers. <br/>Natural comfort meets urban function.</b></p>
+
+---
+
+## Overview
+
+**MĀMĀ** is a production-grade e-commerce front-end for a Singapore-based wool sneaker brand. The application showcases six product SKUs through a quiet-luxury landing experience — warm whites, oat tones, and foggy-gray gradients inspired by the tactile quality of natural merino.
+
+Built as a reference implementation following modern React and TypeScript standards, the stack demonstrates file-based routing, Zustand state management, Tailwind CSS-first theming with a custom wool-palette design system, and type-safe component boundaries crafted for tropical UX.
+
+---
+
+## Key Features
+
+| Feature | Description |
+|--------|-------------|
+| 🛍️ Product Grid | Six SKU product catalog with gradient card backgrounds |
+| 🗣️ Product Detail | Color swatches, size selectors with size guide modal, stock indicators |
+| 🛒 Shopping Cart | Slide-in cart panel with quantity controls, persistent Zustand state |
+| 📦 Checkout | Multi-step mock checkout with form validation |
+| 🌴 Singapore Story | Dark-themed tropical climate data section with animated climate bars |
+| 📱 Responsive | Mobile-first from 360 px with slide-in mobile navigation |
+| ♿ Accessible | Skip links, focus traps, ARIA labels, `prefers-reduced-motion` |
+| 🎨 Anti-Generic | Wolf-Gray bespoke palette, Cormorant Garamond + DM Sans + Space Grotesk typography |
+
+---
+
+## Architecture
+
+| Layer | Technology | Version | Purpose |
+|-------|-----------|---------|---------|
+| Framework | React | ^19.2 | Concurrent rendering, `useActionState` |
+| Language | TypeScript | ^6.0 | Strict mode, `erasableSyntaxOnly` |
+| Build | Vite | ^8.0 | Rolldown engine, HMR, code splitting |
+| Styling | Tailwind CSS | ^4.2 | CSS-first `@theme inline`, no config file |
+| Routing | TanStack Router | ^1.169 | File-based, type-safe routing |
+| State | Zustand | ^5.0 | Flat stores with `persist` middleware |
+| Testing | Vitest | ^4.1 | jsdom, behavioural tests |
+| Icons | Lucide React | ^0.563 | Tree-shakeable SVG icons |
+| Utilities | clsx + tailwind-merge | latest | Conditional class composition |
+
+### Routing Map
+
+```mermaid
+graph LR
+    A[/ /] -->|Home| B[Hero + Brand + Products + Features + Singapore + Testimonials + CTA]
+    A -->|/about| C[Brand Story]
+    A -->|/products| D[Product Listing w/ Sort]
+    D -->|/products/$slug| E[Product Detail Page]
+    A -->|/cart| F[Full Cart Page]
+    A -->|/checkout| G[Checkout Form]
+    A -->|/*| H[404]
+```
+
+### State Architecture
+
+```mermaid
+graph TD
+    subgraph UI[useUIStore — ephemeral]
+        U1[isCartOpen]
+        U2[isMobileNavOpen]
+        U3[toasts[]]
+    end
+
+    subgraph Cart[useCartStore — persist]
+        C1[items[]]
+        C2[addItem]
+        C3[updateQty]
+        C4[removeItem]
+        C5[clearCart]
+    end
+
+    UI --> Shared((Shared Overlays))
+    Cart --> Shared
+```
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** ≥ 20 (LTS recommended)
+- **npm** ≥ 10 (ships with Node ≥ 20)
+
+### 1. Clone & Install
+
+```bash
+git clone <repo-url>
+cd wool-sneakers-mvp
+npm install --legacy-peer-deps
+```
+
+### 2. Generate Route Tree
+
+```bash
+npx tsr generate
+```
+
+### 3. Verify TypeScript + Tests
+
+```bash
+npx tsc --noEmit   # must yield zero errors
+npx vitest run       # should report 17+ tests passing
+```
+
+### 4. Start Development Server
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5173
+
+### 5. Production Build
+
+```bash
+npm run build
+```
+
+Build artifacts are emitted to `dist/`.
+
+---
+
+## File Hierarchy
+
+```
+src/
+├── main.tsx                          # Entry point (StrictMode + RouterProvider)
+├── globals.css                       # Tailwind v4 @theme inline (wool palette)
+├── globals.d.ts                      # CSS module declarations
+├── routeTree.gen.ts                  # Auto-generated by TanStack Router
+│
+├── components/
+│   ├── ui/                            # Primitive components (button, input, badge)
+│   ├── shared/                        # Cross-cutting (SkipLink, Toast, GrainOverlay, SneakerSVG…)
+│   ├── layout/                        # Structural (Navbar, Footer, AnnouncementBar)
+│   ├── sections/                      # Home page sections (Hero, Products, SingaporeStory…)
+│   └── cart/                          # CartSlidePanel (slide-in overlay)
+│
+├── components/
+│   ├── hooks/
+│   │   ├── useThrottledScroll.ts     # rAF + throttled scroll handler
+│   │   ├── useFocusTrap.ts           # Keyboard focus trap for overlays
+│   │   └── useScrollReveal.ts        # IntersectionObserver wrapper
+│   ├── lib/
+│   │   ├── utils.ts                  # cn() — clsx + tailwind-merge
+│   │   ├── format.ts                 # formatPrice(cents) → SGD string
+│   │   └── products.ts                # Product catalog + sort + lookup
+│   ├── routes/
+│   │   ├── __root.tsx                 # Root layout (Navbar + Footer + Overlays)
+│   │   ├── index.tsx                  # Home page (all sections)
+│   │   ├── about.tsx                  # Brand story
+│   │   ├── products.index.tsx         # Product listing
+│   │   ├── products.$slug.tsx        # Product detail
+│   │   ├── cart.tsx                   # Full cart page
+│   │   ├── checkout.tsx               # Checkout form
+│   │   └── $.tsx                      # 404 catch-all
+│   ├── stores/
+│   │   ├── cart.ts                    # useCartStore (Zustand + persist)
+│   │   └── ui.ts                      # useUIStore (Zustand, ephemeral)
+│   ├── types/
+│   │   ├── product.ts                 # Product, ProductColor, ProductSize, ProductTag
+│   │   ├── cart.ts                    # CartItem
+│   │   └── ui.ts                      # Toast, ToastType
+│   └── test/
+│       ├── setup.ts                   # jsdom, rAF + IntersectionObserver mocks
+│       ├── cart.store.test.ts         # 9 cart-store behaviour tests
+│       ├── ui.store.test.ts         # 4 UI-store behaviour tests
+│       └── utils.test.ts            # cn / formatPrice tests
+```
+
+---
+
+## Testing
+
+Run the full suite (unit tests):
+
+```bash
+npx vitest run
+```
+
+Run in watch mode during development:
+
+```bash
+npm test
+```
+
+### Test Structure
+
+| Test File | Concern | Count |
+|-----------|---------|-------|
+| `cart.store.test.ts` | Add, increment, separate color lines, remove, subtotal, count, empty state, updateQty, clear | 9 |
+| `ui.store.test.ts` | Cart toggle, mobile nav toggle, mutual exclusion (cart ↔ nav), toast CRUD | 4 |
+| `utils.test.ts` | `cn()` tailwind-merge, `formatPrice()` locale formatting | 4 |
+
+All tests pass within `~1.5 s` on a clean run.
+
+---
+
+## Design System
+
+### Wool Color Palette
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `warm-white` | `#F7F4F0` | Page background |
+| `cream` | `#FDFBF8` | Card backgrounds |
+| `oat-50` – `oat-500` | `#F5F0E8` – `#B5A288` | Surfaces, borders, hover states |
+| `fog-50` – `fog-400` | `#E8E5E0` – `#8C8580` | Text, mid-tones, muted borders |
+| `wool-900` | `#3D3835` | Primary text, dark backgrounds |
+| `wool-300` | `#8C8580` | Secondary/tertiary text |
+
+### Typography
+
+| Role | Font | Usage |
+|------|------|-------|
+| Display | Cormorant Garamond | Headings, brand voice |
+| Body | DM Sans | Paragraphs, form labels |
+| Accent | Space Grotesk | Eyebrows / labels, uppercase |
+
+---
+
+## Contributing
+
+1. **TDD Cycle** — write a failing test first, make it pass, then refactor.
+2. **Branch from `main`** — short-lived branches (merge within 1–3 days).
+3. **Pre-commit checks** — TypeScript strict, then Vitest, then build.
+4. **Quality gates** — `npx tsc --noEmit`, `npx vitest run`, `npm run build` must all pass.
+
+---
+
+## Project Status
+
+| Phase | Status | Deliverable |
+|-------|--------|-------------|
+| Foundation | ✅ Complete | Vite 8 + Tailwind v4 + TypeScript strict + Vitest |
+| State Management | ✅ Complete | Zustand cart store + UI store + hooks |
+| Routing | ✅ Complete | TanStack Router, 7 routes |
+| Home Page | ✅ Complete | 7 sections + hero + footer |
+| Product Pages | ✅ Complete | Grid, detail, size guide, add-to-cart |
+| Cart | ✅ Complete | Slide-in panel + full page |
+| Checkout | ✅ Complete | Mock multi-step checkout |
+| Testing | ✅ Complete | 17+ tests, all green |
+| Polish | ✅ Complete | Grain overlay, scroll animations, responsive |
+
+---
+
+## License
+
+[MIT](LICENSE)
