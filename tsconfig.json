@@ -24,9 +24,9 @@
       "@lib/*": ["./src/lib/*"],
       "@routes/*": ["./src/routes/*"],
       "@stores/*": ["./src/stores/*"],
-      "@types/*": ["./src/types/*"]
+      "@shared/*": ["./src/components/shared/*"]
     }
   },
   "include": ["src"],
-  "references": []
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

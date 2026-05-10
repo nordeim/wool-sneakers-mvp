@@ -1,12 +1,11 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+    tanstackRouter({ target: 'react', autoCodeSplitting: true }),
     tailwindcss(),
     react()
   ],
@@ -18,26 +17,19 @@ export default defineConfig({
       '@lib': '/src/lib',
       '@routes': '/src/routes',
       '@stores': '/src/stores',
-      '@types': '/src/types'
+      '@shared': '/src/components/shared'
     }
   },
   build: {
-    target: 'es2022',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: (id: string) => {
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
-            return 'react-vendor'
-          }
-          if (id.includes('node_modules/@tanstack')) {
-            return 'router-vendor'
-          }
-          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx') || id.includes('node_modules/tailwind-merge')) {
-            return 'ui-vendor'
-          }
-        }
-      }
+    // CRITICAL: Must be a function for Vite 8 / Rolldown
+    manualChunks: (id: string) => {
+      if (id.includes('react')) return 'react-vendor'
+      if (id.includes('tanstack')) return 'router-vendor'
+      if (id.includes('lucide')) return 'lucide'
     }
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts'
   }
 })
