@@ -1,4 +1,4 @@
-<h1 align="center">MĀMĀ — Wool Sneakers for the Modern City</h1>
+<h1 align="center">MĀMĀ - Wool Sneakers for the Modern City</h1>
 
 <p align="center">
   <a href="https://github.com/wool-sneakers-mvp/wool-sneakers-mvp">
@@ -17,13 +17,13 @@
   </a>
 </p>
 
-<p align="center"><b>🇸🇬 Singapore-born merino wool sneakers. <br/>Natural comfort meets urban function.</b></p>
+<p align="center"><b>Singapore-born merino wool sneakers. Natural comfort meets urban function.</b></p>
 
 ---
 
 ## Overview
 
-**MĀMĀ** is a production-grade e-commerce front-end for a Singapore-based wool sneaker brand. The application showcases six product SKUs through a quiet-luxury landing experience — warm whites, oat tones, and foggy-gray gradients inspired by the tactile quality of natural merino.
+**MĀMĀ** is a production-grade e-commerce front-end for a Singapore-based wool sneaker brand. The application showcases six product SKUs through a quiet-luxury landing experience - warm whites, oat tones, and foggy-gray gradients inspired by the tactile quality of natural merino.
 
 Built as a reference implementation following modern React and TypeScript standards, the stack demonstrates file-based routing, Zustand state management, Tailwind CSS-first theming with a custom wool-palette design system, and type-safe component boundaries crafted for tropical UX.
 
@@ -33,14 +33,15 @@ Built as a reference implementation following modern React and TypeScript standa
 
 | Feature | Description |
 |--------|-------------|
-| 🛍️ Product Grid | Six SKU product catalog with gradient card backgrounds |
-| 🗣️ Product Detail | Color swatches, size selectors with size guide modal, stock indicators |
-| 🛒 Shopping Cart | Slide-in cart panel with quantity controls, persistent Zustand state |
-| 📦 Checkout | Multi-step mock checkout with form validation |
-| 🌴 Singapore Story | Dark-themed tropical climate data section with animated climate bars |
-| 📱 Responsive | Mobile-first from 360 px with slide-in mobile navigation |
-| ♿ Accessible | Skip links, focus traps, ARIA labels, `prefers-reduced-motion` |
-| 🎨 Anti-Generic | Wolf-Gray bespoke palette, Cormorant Garamond + DM Sans + Space Grotesk typography |
+| Product Grid | Six SKU product catalog with gradient card backgrounds |
+| Product Detail | Color swatches, size selectors with size guide modal, stock indicators |
+| Shopping Cart | Slide-in cart panel with quantity controls, persistent Zustand state |
+| Runtime Validation | Zod schemas at all form boundaries (newsletter, checkout) |
+| Checkout | Multi-step mock checkout with Zod schema validation |
+| Singapore Story | Dark-themed tropical climate data section with animated climate bars |
+| Responsive | Mobile-first from 360 px with slide-in mobile navigation |
+| Accessible | Skip links, focus traps, ARIA labels, prefers-reduced-motion |
+| Anti-Generic | Wolf-Gray bespoke palette, Cormorant Garamond + DM Sans + Space Grotesk typography |
 
 ---
 
@@ -48,50 +49,16 @@ Built as a reference implementation following modern React and TypeScript standa
 
 | Layer | Technology | Version | Purpose |
 |-------|-----------|---------|---------|
-| Framework | React | ^19.2 | Concurrent rendering, `useActionState` |
-| Language | TypeScript | ^6.0 | Strict mode, `erasableSyntaxOnly` |
+| Framework | React | ^19.2 | Concurrent rendering, useActionState |
+| Language | TypeScript | ^6.0 | Strict mode, erasableSyntaxOnly |
 | Build | Vite | ^8.0 | Rolldown engine, HMR, code splitting |
-| Styling | Tailwind CSS | ^4.2 | CSS-first `@theme inline`, no config file |
+| Styling | Tailwind CSS | ^4.2 | CSS-first @theme inline, no config file |
 | Routing | TanStack Router | ^1.169 | File-based, type-safe routing |
-| State | Zustand | ^5.0 | Flat stores with `persist` middleware |
+| State | Zustand | ^5.0 | Flat stores with persist middleware |
+| Validation | Zod | ^4.4 | Runtime schema validation at boundaries |
 | Testing | Vitest | ^4.1 | jsdom, behavioural tests |
 | Icons | Lucide React | ^0.563 | Tree-shakeable SVG icons |
 | Utilities | clsx + tailwind-merge | latest | Conditional class composition |
-
-### Routing Map
-
-```mermaid
-graph LR
-    A[/ /] -->|Home| B[Hero + Brand + Products + Features + Singapore + Testimonials + CTA]
-    A -->|/about| C[Brand Story]
-    A -->|/products| D[Product Listing w/ Sort]
-    D -->|/products/$slug| E[Product Detail Page]
-    A -->|/cart| F[Full Cart Page]
-    A -->|/checkout| G[Checkout Form]
-    A -->|/*| H[404]
-```
-
-### State Architecture
-
-```mermaid
-graph TD
-    subgraph UI[useUIStore — ephemeral]
-        U1[isCartOpen]
-        U2[isMobileNavOpen]
-        U3[toasts[]]
-    end
-
-    subgraph Cart[useCartStore — persist]
-        C1[items[]]
-        C2[addItem]
-        C3[updateQty]
-        C4[removeItem]
-        C5[clearCart]
-    end
-
-    UI --> Shared((Shared Overlays))
-    Cart --> Shared
-```
 
 ---
 
@@ -99,8 +66,8 @@ graph TD
 
 ### Prerequisites
 
-- **Node.js** ≥ 20 (LTS recommended)
-- **npm** ≥ 10 (ships with Node ≥ 20)
+- **Node.js** >= 20 (LTS recommended)
+- **npm** >= 10 (ships with Node >= 20)
 
 ### 1. Clone & Install
 
@@ -119,8 +86,8 @@ npx tsr generate
 ### 3. Verify TypeScript + Tests
 
 ```bash
-npx tsc --noEmit   # must yield zero errors
-npx vitest run       # should report 17+ tests passing
+npx tsc --noEmit
+npx vitest run
 ```
 
 ### 4. Start Development Server
@@ -137,134 +104,142 @@ Open http://localhost:5173
 npm run build
 ```
 
-Build artifacts are emitted to `dist/`.
-
 ---
 
 ## File Hierarchy
 
 ```
 src/
-├── main.tsx                          # Entry point (StrictMode + RouterProvider)
-├── globals.css                       # Tailwind v4 @theme inline (wool palette)
-├── globals.d.ts                      # CSS module declarations
-├── routeTree.gen.ts                  # Auto-generated by TanStack Router
-│
+├── main.tsx                          Entry point
+├── globals.css                       Tailwind v4 @theme inline (wool palette)
+├── globals.d.ts                      CSS module declarations
+├── routeTree.gen.ts                  Auto-generated by TanStack Router
 ├── components/
-│   ├── ui/                            # Primitive components (button, input, badge)
-│   ├── shared/                        # Cross-cutting (SkipLink, Toast, GrainOverlay, SneakerSVG…)
-│   ├── layout/                        # Structural (Navbar, Footer, AnnouncementBar)
-│   ├── sections/                      # Home page sections (Hero, Products, SingaporeStory…)
-│   └── cart/                          # CartSlidePanel (slide-in overlay)
-│
-├── components/
-│   ├── hooks/
-│   │   ├── useThrottledScroll.ts     # rAF + throttled scroll handler
-│   │   ├── useFocusTrap.ts           # Keyboard focus trap for overlays
-│   │   └── useScrollReveal.ts        # IntersectionObserver wrapper
-│   ├── lib/
-│   │   ├── utils.ts                  # cn() — clsx + tailwind-merge
-│   │   ├── format.ts                 # formatPrice(cents) → SGD string
-│   │   └── products.ts                # Product catalog + sort + lookup
-│   ├── routes/
-│   │   ├── __root.tsx                 # Root layout (Navbar + Footer + Overlays)
-│   │   ├── index.tsx                  # Home page (all sections)
-│   │   ├── about.tsx                  # Brand story
-│   │   ├── products.index.tsx         # Product listing
-│   │   ├── products.$slug.tsx        # Product detail
-│   │   ├── cart.tsx                   # Full cart page
-│   │   ├── checkout.tsx               # Checkout form
-│   │   └── $.tsx                      # 404 catch-all
-│   ├── stores/
-│   │   ├── cart.ts                    # useCartStore (Zustand + persist)
-│   │   └── ui.ts                      # useUIStore (Zustand, ephemeral)
-│   ├── types/
-│   │   ├── product.ts                 # Product, ProductColor, ProductSize, ProductTag
-│   │   ├── cart.ts                    # CartItem
-│   │   └── ui.ts                      # Toast, ToastType
-│   └── test/
-│       ├── setup.ts                   # jsdom, rAF + IntersectionObserver mocks
-│       ├── cart.store.test.ts         # 9 cart-store behaviour tests
-│       ├── ui.store.test.ts         # 4 UI-store behaviour tests
-│       └── utils.test.ts            # cn / formatPrice tests
+│   ├── ui/                           Primitive components (button, input, badge)
+│   ├── shared/                       Cross-cutting (SkipLink, Toast, SneakerSVG)
+│   ├── layout/                       Structural (Navbar, Footer, AnnouncementBar)
+│   ├── sections/                     Home page sections
+│   └── cart/                         CartSlidePanel (slide-in overlay)
+├── hooks/
+│   ├── useThrottledScroll.ts        rAF + throttled scroll
+│   ├── useFocusTrap.ts              Keyboard focus trap
+│   └── useScrollReveal.ts           IntersectionObserver wrapper
+├── services/
+│   └── products.ts                   ProductService typed interface + impl
+├── lib/
+│   ├── utils.ts                      cn() - clsx + tailwind-merge
+│   ├── format.ts                     formatPrice(cents) -> SGD string
+│   ├── schemas.ts                    Zod validation schemas
+│   └── products.ts                   Product catalog + sort + lookup
+├── routes/
+│   ├── __root.tsx                    Root layout + overlays
+│   ├── index.tsx                     Home page
+│   ├── about.tsx                     Brand story
+│   ├── products.index.tsx            Product listing
+│   ├── products.slug.tsx            Product detail
+│   ├── cart.tsx                      Full cart page
+│   ├── checkout.tsx                  Checkout form (Zod-validated)
+│   └── $.tsx                         404 catch-all
+├── stores/
+│   ├── cart.ts                       useCartStore (persist)
+│   └── ui.ts                         useUIStore (ephemeral)
+├── types/
+│   ├── product.ts
+│   ├── cart.ts
+│   └── ui.ts
+└── test/
+    ├── setup.ts                      jsdom, rAF + IntersectionObserver
+    ├── cart.store.test.ts            9 cart tests
+    ├── ui.store.test.ts            4 UI tests
+    └── utils.test.ts               cn / formatPrice tests
+```
+
+---
+
+## Validation & Schemas
+
+Validation happens **only at system boundaries** - form submission, API input. Internal code trusts typed contracts.
+
+| Schema | Validates | Usage |
+|--------|-----------|-------|
+| newsletterSchema | Email | NewsletterSection form |
+| checkoutSchema | fullName, email, address, city, postalCode | Checkout form |
+
+**Error extraction pattern:**
+```typescript
+const result = newsletterSchema.safeParse({ email: formData.email })
+if (!result.success) {
+  return { message: result.error.issues[0].message, type: 'error' }
+}
 ```
 
 ---
 
 ## Testing
 
-Run the full suite (unit tests):
-
 ```bash
-npx vitest run
+npx vitest run    # Run once (CI)
+npm test           # Watch mode (dev)
 ```
-
-Run in watch mode during development:
-
-```bash
-npm test
-```
-
-### Test Structure
 
 | Test File | Concern | Count |
 |-----------|---------|-------|
-| `cart.store.test.ts` | Add, increment, separate color lines, remove, subtotal, count, empty state, updateQty, clear | 9 |
-| `ui.store.test.ts` | Cart toggle, mobile nav toggle, mutual exclusion (cart ↔ nav), toast CRUD | 4 |
-| `utils.test.ts` | `cn()` tailwind-merge, `formatPrice()` locale formatting | 4 |
+| cart.store.test.ts | Add, decrement, subtotal, empty, clear | 9 |
+| ui.store.test.ts | Toggle, mutual exclusion, toast CRUD | 4 |
+| utils.test.ts | cn(), formatPrice() | 4 |
 
-All tests pass within `~1.5 s` on a clean run.
+All tests pass within ~1.5 s.
 
 ---
 
 ## Design System
 
-### Wool Color Palette
+### Color Palette
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `warm-white` | `#F7F4F0` | Page background |
-| `cream` | `#FDFBF8` | Card backgrounds |
-| `oat-50` – `oat-500` | `#F5F0E8` – `#B5A288` | Surfaces, borders, hover states |
-| `fog-50` – `fog-400` | `#E8E5E0` – `#8C8580` | Text, mid-tones, muted borders |
-| `wool-900` | `#3D3835` | Primary text, dark backgrounds |
-| `wool-300` | `#8C8580` | Secondary/tertiary text |
+| warm-white | #F7F4F0 | Page background |
+| cream | #FDFBF8 | Card backgrounds |
+| wool-900 | #3D3835 | Primary text, dark backgrounds |
 
-### Typography
+---
 
-| Role | Font | Usage |
-|------|------|-------|
-| Display | Cormorant Garamond | Headings, brand voice |
-| Body | DM Sans | Paragraphs, form labels |
-| Accent | Space Grotesk | Eyebrows / labels, uppercase |
+## Lessons Learned
+
+### 1. Component Interface Naming
+
+Always use descriptive prop names. ErrorBoundary changed from `Props` to `ErrorBoundaryProps` for clarity.
+
+### 2. Zod v4 Error Access
+
+Zod v4 uses `error.issues[0].message` NOT `error.errors[0].message`.
+
+### 3. Service Layer Abstraction
+
+Extracting a typed `ProductService` interface makes swapping implementations (in-memory -> API) zero-friction for consumers.
+
+### 4. Barrel Exports
+
+Centralizing component exports in `src/components/index.ts` makes consumer imports cleaner and prevents deep path coupling.
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| TS2304: Cannot find name 'Props' | Generic interface name reused | Rename to ErrorBoundaryProps |
+| Type error on Zod issues | Zod v4 API changed | Use error.issues instead of error.errors |
+| Route not found after adding | Forgetting npx tsr generate | Always regenerate after route changes |
 
 ---
 
 ## Contributing
 
-1. **TDD Cycle** — write a failing test first, make it pass, then refactor.
-2. **Branch from `main`** — short-lived branches (merge within 1–3 days).
-3. **Pre-commit checks** — TypeScript strict, then Vitest, then build.
-4. **Quality gates** — `npx tsc --noEmit`, `npx vitest run`, `npm run build` must all pass.
-
----
-
-## Project Status
-
-| Phase | Status | Deliverable |
-|-------|--------|-------------|
-| Foundation | ✅ Complete | Vite 8 + Tailwind v4 + TypeScript strict + Vitest |
-| State Management | ✅ Complete | Zustand cart store + UI store + hooks |
-| Routing | ✅ Complete | TanStack Router, 7 routes |
-| Home Page | ✅ Complete | 7 sections + hero + footer |
-| Product Pages | ✅ Complete | Grid, detail, size guide, add-to-cart |
-| Cart | ✅ Complete | Slide-in panel + full page |
-| Checkout | ✅ Complete | Mock multi-step checkout |
-| Testing | ✅ Complete | 17+ tests, all green |
-| Polish | ✅ Complete | Grain overlay, scroll animations, responsive |
-
----
+1. TDD Cycle - write a failing test first, make it pass, then refactor.
+2. Short-lived branches (merge within 1-3 days).
+3. Pre-commit gates: tsc --noEmit -> vitest run -> npm run build.
 
 ## License
 
-[MIT](LICENSE)
+MIT

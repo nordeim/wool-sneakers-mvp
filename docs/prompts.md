@@ -6,3 +6,5 @@ awesome meticulous job so far. please keep up the good work. now, please use sil
 
 ---
 
+awesome meticulous job so far. please update @README.md and @CLAUDE.md with the recent changes to the codebase, lessons learnt, troubleshooting tips, new anti-patterns and pitfalls to avoid.
+

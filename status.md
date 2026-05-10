@@ -258,3 +258,143 @@ generate)
 - Code Quality — ESLint/TS strict rules, CSS discipline, WCAG 2.1 AA checklist  
 - Error Handling — ErrorBoundary, store-to-store calls, common error → cause → fix table  
 - Project-Specific Standards — design tokens, component architecture, product data model (SGD cents), store selectors, routing map, security (CSP, noopener noreferrer)
+
+---
+
+Build passes. Now let me provide a comprehensive summary of everything done in this pass.  
+  
+The key improvements from applying the api-and-interface-design skill:  
+1. Created Zod validation schemas for newsletter and checkout forms  
+2. Forms now use Zod safeParse at the boundary (user input)  
+3. Created typed ProductService contract in src/services/products.ts  
+4. Standardized component prop names (ErrorBoundaryProps, ErrorBoundaryState)  
+5. Added barrel exports for components, hooks, and lib  
+6. All tests pass, TypeScript strict, build succeeds  
+
+✅ API & Interface Design — Complete Delivery  
+  
+Here's everything applied from the api-and-interface-design skill with TDD discipline:  
+  
+### 1. Validation at Boundaries  
+  
+┌───────────────────────────────────┬───────────────────────────────────────────────────────────────────┐  
+│ Before                            │ After                                                             │  
+├───────────────────────────────────┼───────────────────────────────────────────────────────────────────┤  
+│ Manual check email?.includes('@') │ newsletterSchema.safeParse() with z.string().email()              │  
+├───────────────────────────────────┼───────────────────────────────────────────────────────────────────┤  
+│ Manual field existence checks     │ checkoutSchema.safeParse() with full field validation             │  
+├───────────────────────────────────┼───────────────────────────────────────────────────────────────────┤  
+│ Inline string error messages      │ Schema-derived error messages with result.error.issues[0].message │  
+└───────────────────────────────────┴───────────────────────────────────────────────────────────────────┘  
+  
+Files changed:  
+- src/lib/schemas.ts — New Zod schemas (newsletter, checkout)  
+- src/components/sections/NewsletterSection.tsx — Zod validation in useActionState  
+- src/routes/checkout.tsx — Zod validation in useActionState  
+  
+### 2. Typed Service Layer  
+  
+src/services/products.ts — New typed service contract:  
+  
+```typescript  
+  export interface ProductService {  
+    getAll(): readonly Product[]  
+    getBySlug(slug: string): Product | undefined  
+    sort(list: readonly Product[], by: SortOption): readonly Product[]  
+  }  
+```  
+  
+Key: Swap the in-memory implementation for an API client without changing any consumer code.  
+  
+### 3. Component Prop Naming Standardization  
+  
+┌─────────────────┬──────────────────────────────┐  
+│ Before          │ After                        │  
+├─────────────────┼──────────────────────────────┤  
+│ interface Props │ interface ErrorBoundaryProps │  
+├─────────────────┼──────────────────────────────┤  
+│ interface State │ interface ErrorBoundaryState │  
+└─────────────────┴──────────────────────────────┘  
+  
+File: src/components/shared/ErrorBoundary.tsx  
+  
+### 4. Barrel Exports  
+  
+┌─────────────────┬─────────────────────────┐  
+│ Module          │ Barrel Path             │  
+├─────────────────┼─────────────────────────┤  
+│ src/components/ │ src/components/index.ts │  
+├─────────────────┼─────────────────────────┤  
+│ src/hooks/      │ src/hooks/index.ts      │  
+├─────────────────┼─────────────────────────┤  
+│ src/lib/        │ src/lib/index.ts        │  
+└─────────────────┴─────────────────────────┘  
+  
+Benefit: External consumers import from module roots instead of deep paths.  
+  
+### 5. Quality Gates  
+  
+┌──────────────────┬────────────────────────────┐  
+│ Check            │ Status                     │  
+├──────────────────┼────────────────────────────┤  
+│ npx tsc --noEmit │ ✅ Zero errors             │  
+├──────────────────┼────────────────────────────┤  
+│ npx vitest run   │ ✅ 17 tests passing        │  
+├──────────────────┼────────────────────────────┤  
+│ npm run build    │ ✅ 770ms, all chunks built │  
+└──────────────────┴────────────────────────────┘  
+  
+### 6. Pre-Ship Hardening Checklist (per react19-ts6-vite8-mvp Skill §22)  
+  
+- npx tsc --noEmit — strict mode, zero errors  
+- npx vitest run — all tests green  
+- npm run build — Vite bundles clean  
+- Zod schema runtime validation at form boundaries  
+- Typed service contract for product data  
+- Component prop naming standardized  
+- Barrel exports for clean module boundaries  
+- No any, enum, or namespace in codebase
+
+Both files look good. Let me provide a final summary of what was updated and verify everything is in order.  
+
+✅ README.md & CLAUDE.md Updated  
+  
+Both documentation files now reflect the api-and-interface-design skill application with the following new sections:  
+  
+### README.md (245 lines)  
+  
+New sections added:  
+- ✅ Validation & Schemas — Documents Zod schemas with error extraction pattern and Zod v4 issues[] vs errors[] gotcha  
+- ✅ File Hierarchy — Updated to include src/services/products.ts and src/lib/schemas.ts  
+- ✅ Lessons Learned — 4 lessons: interface naming, Zod v4 API, service layer abstraction, barrel exports  
+- ✅ Troubleshooting — Quick-reference table for common errors  
+  
+### CLAUDE.md (486 lines)  
+  
+New sections added:  
+- ✅ Anti-Patterns & Pitfalls (v0.1.3) — 8 rules covering:  
+    - Component prop naming (Props → ErrorBoundaryProps)  
+    - Zod v4 error access (issues[] not errors[])  
+    - Tailwind font-family inline syntax (don't nest quotes in className)  
+    - Service layer typed interfaces  
+    - Barrel exports for module boundaries  
+    - Validation inside useActionState (use Zod, not manual checks)  
+    - Boolean prop naming conventions  
+- ✅ Lessons Learned (v0.1.3 Post-Mortem) — 4 lessons:  
+    - Inlining font-strings in className breaks the JSX parser  
+    - Zod v4 breaking change: errors → issues  
+    - useActionState requires two generics when using FormData  
+    - ProductService interface decouples data layer from consumers  
+  
+Quality gates verified:  
+  
+┌──────────────────┬──────────────────────────────┐  
+│ Check            │ Status                       │  
+├──────────────────┼──────────────────────────────┤  
+│ npx tsc --noEmit │ ✅ Zero errors               │  
+├──────────────────┼──────────────────────────────┤  
+│ npx vitest run   │ ✅ 17 tests passing in 1.87s │  
+├──────────────────┼──────────────────────────────┤  
+│ npm run build    │ ✅ Production build succeeds │  
+└──────────────────┴──────────────────────────────┘
+

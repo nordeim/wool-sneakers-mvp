@@ -241,6 +241,168 @@ submitForm: async (data) => {
 
 ---
 
+## Anti-Patterns & Pitfalls (v0.1.3)
+
+### 1. Component Interface Naming
+
+**❌ DON'T** use generic interface names:
+```typescript
+interface Props { children: React.ReactNode }
+interface State { hasError: boolean }
+```
+
+**✅ DO** use descriptive names:
+```typescript
+interface ErrorBoundaryProps { children: React.ReactNode }
+interface ErrorBoundaryState { hasError: boolean }
+```
+
+### 2. Component Props — No Generic Names
+
+**❌ DON'T** use `Props`, `State`, `ContextType` as the sole name. Always prefix with the component name (`CartProps`, `NavbarState`).
+
+### 3. Zod v4 Error Access
+
+**❌ DON'T** use Zod v3 API on v4:
+```typescript
+result.error.errors[0].message  // ❌ errors property doesn't exist on v4 ZodError
+```
+
+**✅ DO** use `issues[]`:
+```typescript
+// Zod v4 safe API
+result.error.issues[0].message  // ✅ Always use issues[]
+```
+
+### 4. Tailwind Font-Family Inline in className
+
+**❌ DON'T** inline font-family names with double-quotes in className strings:
+```tsx
+// ❌ Breaks JSX parser — nested double quotes inside double-quoted string
+className="font-["Cormorant_Garamond",serif]"
+```
+
+**✅ DO** define CSS custom properties in `@theme inline`:
+```css
+/* globals.css */
+@theme inline {
+  /* Define font tokens */
+  /* Use arbitrary values via prose fields */
+}
+```
+
+Then use layer utility classes:
+```tsx
+// ✅ Clean, no quote-state nesting
+className="font-display"
+```
+
+With a Tailwind `@layer utilities` block:
+```css
+@layer utilities {
+  .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .font-body { font-family: 'DM Sans', 'Helvetica Neue', sans-serif; }
+  .font-accent { font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; }
+}
+```
+
+### 5. Service Layer Always Typed
+
+**❌ DON'T** export raw data + functions without interface:
+```typescript
+export const products = [...]                     // ❌ No contract
+export const getProduct = (slug) => {...}        // ❌ Untyped input/output
+```
+
+**✅ DO** export typed interface + implementation:
+```typescript
+export interface ProductService { ... }
+const productService: ProductService = { ... }
+export { productService }
+```
+
+### 6. Barrel Exports for Module Boundaries
+
+**❌ DON'T** force consumers to import from deep paths:
+```typescript
+import { Button } from '../../../components/ui/button'  // ❌ Brittle, coupling
+```
+
+**✅ DO** use barrel (`index.ts`) exports:
+```typescript
+// src/components/index.ts
+export { Button } from './ui/button'
+// Consumer import is cleaner but still needs explicit paths
+import { Button } from '@/components/ui/button'  // ✅ Path alias, not deep relative
+```
+
+### 7. Redirect with Validation before Action
+
+**❌ DON'T** implement form validation manually inside `useActionState`:
+```typescript
+// ❌ Inline manual checks in action
+const email = formData.get('email') as string
+if (!email.includes('@')) return { error: '...' }
+```
+
+**✅ DO** use Zod schema with `safeParse()`:
+```typescript
+const result = newsletterSchema.safeParse(Object.fromEntries(formData))
+if (!result.success) {
+  return { message: result.error.issues[0].message, type: 'error' }
+}
+```
+
+### 8. Props Naming Conventions
+
+**❌ DON'T** use `is-` prefix for boolean props in TypeScript (that is in HTML/CSS but not in component prop names):
+```tsx
+// ❌ Redundant
+interface LoadingProps { isLoading: boolean }
+```
+
+**✅ DO** use semantic naming:
+```tsx
+// ✅ Clearer
+interface ProgressProps { pending: boolean }
+```
+
+When using component wrappers (e.g. `forwardRef`), naming them consistently is more important. For boolean toggling, prefer `isLoading` over `loading` for disambiguation from string props.
+
+---
+
+## Lessons Learned (v0.1.3 Post-Mortem)
+
+### Lesson 1: Inlining Font Strings in className === Parser Pain
+
+Tailwind CSS v4 allows inline font-family expressions via `font-[]` syntax. When those inline strings contain double quotes (e.g. `font-["Cormorant_Garamond",serif]`), they break the JSX parser because the JSX attribute itself is bounded by double quotes — producing invalid nested quotes.
+
+**Resolution**: Move all font references to CSS `@layer utilities` with custom class names (`.font-display`, `.font-body`, `.font-accent`). Use `sed` to batch-replace inline font styles across the codebase with utility classes.
+
+### Lesson 2: Zod v4 Breaking Change: `errors` → `issues`
+
+When extracting validation messages from a failed parse, Zod v4 changed the property from `error.errors[]` (v3) to `error.issues[]` (v4). This caused `TS2339 Cannot read properties` errors.
+
+**Resolution**: Replace all `result.error.errors[0]` → `result.error.issues[0]`.
+
+### Lesson 3: useActionState Requires Two Generics
+
+`useActionState` in React 19 is a generic that accepts either:
+- `(state, formData) => Promise<State>` (two-argument form)
+- `(state) => State | Promise<State>` (one-argument form)
+
+When using the two-argument form with `FormData`, you **must** type both generics:
+```typescript
+useActionState<State, FormData>(...)   // ✅
+useActionState<State>(...)               // ❌ missing second generic
+```
+
+### Lesson 4: Product Service Interface Decouples Concerns
+
+Initially, product data was exported as a raw array + helper functions. Creating a `ProductService` interface decouples the data layer from consumers. Swapping from in-memory to an HTTP API requires changing only the implementation, not the consumers.
+
+---
+
 ## Communication & Documentation
 
 - **README.md** — top-level project overview, quick start, architecture.

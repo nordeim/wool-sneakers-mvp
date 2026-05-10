@@ -2,6 +2,7 @@ import { useActionState, useState } from 'react'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { newsletterSchema } from '@/lib/schemas'
 
 interface FormState {
   readonly message: string
@@ -13,9 +14,10 @@ export function NewsletterSection() {
 
   const [state, formAction, isPending] = useActionState<FormState, FormData>(
     async (_prevState: FormState, formData: FormData): Promise<FormState> => {
-      const emailValue = formData.get('email') as string
-      if (!emailValue?.includes('@')) {
-        return { message: 'Please enter a valid email.', type: 'error' }
+      const data = Object.fromEntries(formData) as Record<string, string>
+      const result = newsletterSchema.safeParse({ email: data.email })
+      if (!result.success) {
+        return { message: result.error.issues[0].message, type: 'error' }
       }
       await new Promise((r) => setTimeout(r, 1000))
       return {

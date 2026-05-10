@@ -4,6 +4,7 @@ import { useCartStore, selectCartSubtotal } from '@/stores/cart'
 import { formatPrice } from '@/lib/format'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { checkoutSchema } from '@/lib/schemas'
 
 interface CheckoutState {
   readonly step: 'shipping' | 'confirmation'
@@ -60,11 +61,16 @@ function CheckoutForm() {
 
   const [state, formAction, isPending] = useActionState<CheckoutState, FormData>(
     async (_prev: CheckoutState, formData: FormData): Promise<CheckoutState> => {
-      const fullName = formData.get('fullName')
-      const email = formData.get('email')
-      const address = formData.get('address')
-      if (!fullName || !email || !address) {
-        return { step: 'shipping', error: 'Please fill in all required fields.' }
+      const data = Object.fromEntries(formData) as Record<string, string>
+      const result = checkoutSchema.safeParse({
+        fullName: data.fullName,
+        email: data.email,
+        address: data.address,
+        city: data.city,
+        postalCode: data.postalCode,
+      })
+      if (!result.success) {
+        return { step: 'shipping', error: result.error.issues[0].message }
       }
       await new Promise((r) => setTimeout(r, 2000))
       clearCart()
