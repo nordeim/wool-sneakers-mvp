@@ -214,6 +214,7 @@ npx vitest run         # Exits 0 (0 tests found = environment confirmed)
 - No `tailwind.config.js` — all configuration lives in `globals.css`
 - **ZERO raw hex in `className`**. All colors via `@theme` tokens. `text-wool-900`, not `text-[#3D3835]`.
 - Every `--color-*` token defined in `@theme` must have at least one UI consumer. Orphaned tokens defeats the design system.
+- **Reuse layout utilities via `@layer utilities`**. If 14 files repeat `container mx-auto max-w-[1280px] px-6`, register `.container-custom` once and use it everywhere.
 - Mobile-first: `sm:`, `md:`, `lg:`
 - Custom `@keyframes` inside `@theme inline`
 - Complex classes in `@layer utilities`
@@ -861,6 +862,7 @@ src/
 | 16 | **Tailwind v3 utilities in v4** (`bg-gradient-to-*`, `outline-none`, `flex-shrink-0`) | Use `bg-linear-to-*`, `outline-hidden`, `shrink-0` |
 | 17 | **Raw hex in `className`** (`text-[#3D3835]`) | Use `@theme` token utilities (`text-wool-900`) |
 | 18 | **Orphaned `@theme` tokens** | Verify every `--color-*` has at least one UI consumer |
+| 19 | **Repeated container pattern** (`container mx-auto max-w-[1280px] px-6` ×14 files) | Register `.container-custom` in `@layer utilities` and consume in all layout sections |
 
 ---
 
