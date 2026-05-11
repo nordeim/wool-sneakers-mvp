@@ -12,3 +12,6 @@ awesome meticulous job so far. please update @README.md and @CLAUDE.md with the 
 
 awesome meticulous job so far. please keep up the good work. now, review the changes to @README.md as captured in @recent_updates.md and restore back relevant sections and lines that are still valid with the recent code changes.
 
+---
+
+please meticulously review and update @skills/react19-ts6-vite8-tailwindv4-mvp/SKILL.md with relevant details about the recent code changes as captured in @recent_updates.md, add useful details like new code patterns, troubleshooting tips, lessons learnt and new anti-patterns. 
