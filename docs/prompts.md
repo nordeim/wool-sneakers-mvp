@@ -15,3 +15,12 @@ awesome meticulous job so far. please keep up the good work. now, review the cha
 ---
 
 please meticulously review and update @skills/react19-ts6-vite8-tailwindv4-mvp/SKILL.md with relevant details about the recent code changes as captured in @recent_updates.md, add useful details like new code patterns, troubleshooting tips, lessons learnt and new anti-patterns. 
+
+---
+
+awesome meticulous job so far. please keep up the good work. now, please meticulously review @skill-update.txt and validate the updates are complete and accurate as intended, and that there were no accidental ommissions.
+
+---
+
+awesome meticulous job so far. please keep up the good work. now, please use the skill 'agents-md' to meticulously plan to update & augment @AGENTS.md and align it with the current codebase. 
+

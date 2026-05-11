@@ -586,3 +586,58 @@ The README is restored and all quality gates pass. Let me summarize what was res
 │ npm run build    │ ✅ 763 ms production build │  
 └──────────────────┴────────────────────────────┘ 
 
+---
+
+✅ AGENTS.md Updated (agents-md skill applied)  
+  
+Old: ~250 lines, verbose multi-section document with prose-heavy workflow descriptions, generic "trust levels", and redundant content duplicated in CLAUDE.md.  
+  
+New: 113 lines, compact high-signal document with every section answering "would an agent likely miss this without help?"  
+  
+### Key changes  
+  
+┌────────────────────────────────────────────────┬──────────────────────────────────────────┐  
+│ Before                                         │ After                                    │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ 8 verbose sections                             │ 6 tight sections                         │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ Generic 6-phase workflow prose                 │ 3-step agent workflow with commands      │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ "Relevant Source Files" (generic advice)       │ Removed (CLUADE.md is for reading files) │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ NewsletterSection validation detail            │ Removed (moved to CLAUDE.md)             │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ Tech stack buried in prose                     │ Bulleted, scannable                      │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ --legacy-peer-deps mentioned nowhere           │ Added to commands table                  │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ Object.fromEntries(formData) not mentioned     │ Added pattern with code sample           │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ error.issues[0].message in CLAUDE.md only      │ Added to common errors table             │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ font-[\"...\"] Parser gotcha only in CLAUDE.md │ Added to gotchas + common errors         │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ useActionState<State, FormData> two generics   │ Added with code sample                   │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ Service layer + barrel exports                 │ Added concise summary                    │  
+├────────────────────────────────────────────────┼──────────────────────────────────────────┤  
+│ Directory structure in prose                   │ Concise tree with barrel notes           │  
+└────────────────────────────────────────────────┴──────────────────────────────────────────┘  
+  
+### Quality Gates (after edit)  
+  
+┌──────────────────┬────────────────────────────┐  
+│ Gate             │ Result                     │  
+├──────────────────┼────────────────────────────┤  
+│ npx tsc --noEmit │ ✅ Zero errors             │  
+├──────────────────┼────────────────────────────┤  
+│ npx vitest run   │ ✅ 17 tests, 1.51 s        │  
+├──────────────────┼────────────────────────────┤  
+│ npm run build    │ ✅ 790 ms production build │  
+└──────────────────┴────────────────────────────┘  
+  
+### Reference flow  
+  
+- AGENTS.md — scannable first-read (stack, commands, gotchas)  
+- CLAUDE.md — deep operational context (detailed anti-patterns, code examples, design system)
+
