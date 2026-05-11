@@ -241,9 +241,77 @@ submitForm: async (data) => {
 
 ---
 
-## Anti-Patterns & Pitfalls (v0.1.3)
+## Anti-Patterns & Pitfalls (v0.1.4)
 
-### 1. Component Interface Naming
+### 1. Tailwind v3 → v4 Deprecated Utilities
+
+**❌ DON'T** use v3 Tailwind utility names in a v4 project:
+```tsx
+// ❌ These silently produce no CSS in Tailwind v4
+className="bg-gradient-to-r from-wool-500 to-wool-900"
+className="outline-none"
+className="flex-shrink-0"
+```
+
+**✅ DO** use v4 equivalents:
+```tsx
+className="bg-linear-to-r from-wool-500 to-wool-900"
+className="outline-hidden"
+className="shrink-0"
+```
+
+| v3 Utility | v4 Equivalent |
+|---|---|
+| `bg-gradient-to-*` | `bg-linear-to-*` |
+| `outline-none` | `outline-hidden` |
+| `flex-shrink-0` | `shrink-0` |
+| `flex-grow-0` | `grow-0` |
+
+---
+
+### 2. Raw Hex in `className` Instead of `@theme` Tokens
+
+**❌ DON'T** inline raw hex colors in `className` when a token already exists in `@theme inline`:
+```tsx
+// ❌ Defeats the design system; requires N edits if the color changes
+<span className="text-[#3D3835]">...
+```
+
+**✅ DO** use the generated utility from `@theme`:
+```tsx
+<span className="text-wool-900">...
+```
+
+### 3. Orphaned `@theme` Tokens
+
+**❌ DON'T** define tokens in `@theme` and then never consume them:
+```css
+/* globals.css */
+@theme inline {
+  --color-wool-900: #3D3835;
+  --color-oat-200: #E0D4C2;
+}
+```
+```tsx
+// ❌ The token exists but is functionally dead
+<div className="text-[#3D3835]">...</div>
+```
+
+**✅ DO** use the generated class everywhere after defining the token. Run `scripts/validate-colors.sh` in CI to enforce zero raw hex in `className`.
+
+### 4. Component Interface Naming
+
+**❌ DON'T** use generic interface names:
+```typescript
+interface Props { children: React.ReactNode }
+interface State { hasError: boolean }
+```
+
+**✅ DO** use descriptive names:
+```typescript
+interface ErrorBoundaryProps { children: React.ReactNode }
+interface ErrorBoundaryState { hasError: boolean }
+```
 
 **❌ DON'T** use generic interface names:
 ```typescript
@@ -371,21 +439,33 @@ When using component wrappers (e.g. `forwardRef`), naming them consistently is m
 
 ---
 
-## Lessons Learned (v0.1.3 Post-Mortem)
+## Lessons Learned (v0.1.4 Post-Mortem)
 
-### Lesson 1: Inlining Font Strings in className === Parser Pain
+### Lesson 1: Tailwind v3 → v4 Utility Renames Are Silent Failures
+
+After upgrading to Tailwind v4, `bg-gradient-to-r`, `outline-none`, and `flex-shrink-0` stopped producing valid CSS — but the build still passed. Tailwind v4's zero-configuration content detection meant these utility names simply generated no output. The site appeared broken only on visual inspection.
+
+**Resolution**: Audit all v3 utility names against the v4 migration table. Use `validate-deprecated-twind.sh` in CI to block re-introduction. Never assume a utility name is the same across major versions.
+
+### Lesson 2: `@theme` Tokens Must Be Actively Consumed
+
+The codebase defined a full `@theme inline` color palette (`--color-wool-900`, `--color-oat-200`, etc.) but continued using raw hex bracket values (`text-[#3D3835]`) in every component. The design system was technically correct at the CSS level but functionally dead.
+
+**Resolution**: Run `validate-colors.sh` (grep for bracket hex in className) before every PR. Refactor 268 occurrences across 25 files via a `perl` script. Replace all `text-[#hex]` → `text-token` and `bg-[#hex]` → `bg-token`.
+
+### Lesson 3: Inlining Font Strings in className === Parser Pain
 
 Tailwind CSS v4 allows inline font-family expressions via `font-[]` syntax. When those inline strings contain double quotes (e.g. `font-["Cormorant_Garamond",serif]`), they break the JSX parser because the JSX attribute itself is bounded by double quotes — producing invalid nested quotes.
 
 **Resolution**: Move all font references to CSS `@layer utilities` with custom class names (`.font-display`, `.font-body`, `.font-accent`). Use `sed` to batch-replace inline font styles across the codebase with utility classes.
 
-### Lesson 2: Zod v4 Breaking Change: `errors` → `issues`
+### Lesson 4: Zod v4 Breaking Change: `errors` → `issues`
 
 When extracting validation messages from a failed parse, Zod v4 changed the property from `error.errors[]` (v3) to `error.issues[]` (v4). This caused `TS2339 Cannot read properties` errors.
 
 **Resolution**: Replace all `result.error.errors[0]` → `result.error.issues[0]`.
 
-### Lesson 3: useActionState Requires Two Generics
+### Lesson 5: useActionState Requires Two Generics
 
 `useActionState` in React 19 is a generic that accepts either:
 - `(state, formData) => Promise<State>` (two-argument form)
@@ -397,7 +477,7 @@ useActionState<State, FormData>(...)   // ✅
 useActionState<State>(...)               // ❌ missing second generic
 ```
 
-### Lesson 4: Product Service Interface Decouples Concerns
+### Lesson 6: Product Service Interface Decouples Concerns
 
 Initially, product data was exported as a raw array + helper functions. Creating a `ProductService` interface decouples the data layer from consumers. Swapping from in-memory to an HTTP API requires changing only the implementation, not the consumers.
 
@@ -475,6 +555,24 @@ const count = useCartStore(s => s.items.length)       // ✅
 - `/cart` — Full cart page
 - `/checkout` — Checkout flow
 - `/*` — 404 catch-all
+
+---
+
+## Code-Level Quality Gates (Enforced via CI)
+
+### `scripts/validate-colors.sh`
+```bash
+#!/bin/bash
+# Fails if raw hex colors found in className utilities
+grep -rnP 'text-\[#|bg-\[#|border-\[#' src/ && exit 1
+```
+
+### `scripts/validate-deprecated-twind.sh`
+```bash
+#!/bin/bash
+# Fails if v3 Tailwind utility names are used in v4 codebase
+grep -rnP 'bg-gradient-to-(r|l|t|b)|outline-none[^-]|flex-shrink-0' src/ && exit 1
+```
 
 ---
 

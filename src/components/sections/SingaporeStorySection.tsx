@@ -5,7 +5,7 @@ export function SingaporeStorySection() {
   return (
     <section
       id="sg-story"
-      className="py-24 md:py-32 lg:py-40 bg-[#3D3835] text-[#F7F4F0] relative overflow-hidden"
+      className="py-24 md:py-32 lg:py-40 bg-wool-900 text-warm-white relative overflow-hidden"
       aria-labelledby="sg-heading"
     >
       <div
@@ -16,23 +16,23 @@ export function SingaporeStorySection() {
         }}
         aria-hidden="true"
       />
-      <div className="container mx-auto max-w-[1280px] px-6 relative z-[2]">
+      <div className="container-custom relative z-[2]">
         <div className="grid grid-cols-1 md:grid-cols-[5fr_4fr] gap-8 md:gap-12">
           <ScrollReveal>
             <div>
-              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#C5B49A] mb-3">
+              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-oat-400 mb-3">
                 The Singapore Proof
               </p>
               <h2
                 id="sg-heading"
-                className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight text-[#F7F4F0] mb-6"
+                className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight text-warm-white mb-6"
               >
                 Engineered for{' '}
-                <em className="italic text-[#D4C4B0]">32°C</em>
+                <em className="italic text-oat-300">32°C</em>
                 <br />
                 and 85% Humidity
               </h2>
-              <div className="space-y-4 text-[#B5AFA9] leading-relaxed">
+              <div className="space-y-4 text-wool-100 leading-relaxed">
                 <p>
                   Most wool brands are designed for Scandinavian winters. We
                   designed ours for the MRT at 8:47 AM, the walk from Tanjong
@@ -55,10 +55,10 @@ export function SingaporeStorySection() {
                     key={stat.label}
                     className="text-center p-4 rounded-xl bg-white/[0.04] border border-white/[0.06]"
                   >
-                    <div className="font-display text-[2rem] font-light text-[#D4C4B0] mb-1">
+                    <div className="font-display text-[2rem] font-light text-oat-300 mb-1">
                       {stat.value}
                     </div>
-                    <div className="font-accent text-[0.6rem] tracking-[0.12em] uppercase text-[#B5AFA9]">
+                    <div className="font-accent text-[0.6rem] tracking-[0.12em] uppercase text-wool-100">
                       {stat.label}
                     </div>
                   </div>
@@ -107,26 +107,26 @@ function ClimateCard() {
       ref={ref}
       className="bg-white/[0.04] border border-white/[0.08] rounded-[20px] p-8 w-full max-w-[360px]"
     >
-      <h3 className="font-display text-[1.1rem] text-[#F7F4F0] mb-6">
+      <h3 className="font-display text-[1.1rem] text-warm-white mb-6">
         Singapore Climate Profile
       </h3>
       {bars.map((bar) => (
         <div key={bar.label} className="mb-5 last:mb-6">
           <div className="flex justify-between text-[0.8rem] mb-1.5">
-            <span className="text-[#B5AFA9]">{bar.label}</span>
-            <span className="font-accent font-semibold text-[#D4C4B0]">
+            <span className="text-wool-100">{bar.label}</span>
+            <span className="font-accent font-semibold text-oat-300">
               {bar.value}
             </span>
           </div>
           <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#D4C4B0] to-[#C5B49A] transition-all duration-[1500ms] ease-out"
+              className="h-full rounded-full bg-linear-to-r from-oat-300 to-oat-400 transition-all duration-[1500ms] ease-out"
               style={{ width: visible ? bar.width : '0%' }}
             />
           </div>
         </div>
       ))}
-      <p className="text-[0.78rem] text-[#B5AFA9] leading-relaxed pt-5 border-t border-white/[0.06]">
+      <p className="text-[0.78rem] text-wool-100 leading-relaxed pt-5 border-t border-white/[0.06]">
         Our merino wool fibre can absorb up to 35% of its weight in moisture
         before feeling wet — keeping your feet comfortable even in tropical
         conditions.

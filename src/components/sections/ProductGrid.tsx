@@ -14,13 +14,13 @@ export function ProductGrid() {
   return (
     <section
       id="products"
-      className="py-24 md:py-32 lg:py-40 bg-[#F7F4F0]"
+      className="py-24 md:py-32 lg:py-40 bg-warm-white"
       aria-labelledby="products-heading"
     >
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
               The Collection
             </p>
             <h2
@@ -29,7 +29,7 @@ export function ProductGrid() {
             >
               Every Step, Naturally Crafted
             </h2>
-            <p className="text-[#B5AFA9] max-w-[480px] mx-auto">
+            <p className="text-wool-100 max-w-[480px] mx-auto">
               Six silhouettes. One philosophy. Merino wool sneakers designed for
               the way you actually live.
             </p>
@@ -99,13 +99,13 @@ function ProductCard({ product }: { product: Product }) {
           />
         </div>
       </Link>
-      <div className="p-6 bg-[#FDFBF8]">
+      <div className="p-6 bg-cream">
         <Link to="/products/$slug" params={{ slug: product.slug }}>
           <h3 className="font-display text-[1.2rem] mb-0.5">
             {product.name}
           </h3>
         </Link>
-        <p className="text-[0.85rem] text-[#B5AFA9] mb-3">
+        <p className="text-[0.85rem] text-wool-100 mb-3">
           {product.description}
         </p>
         <div className="flex items-center justify-between mb-3">
@@ -120,8 +120,8 @@ function ProductCard({ product }: { product: Product }) {
                 className={cn(
                   'w-3.5 h-3.5 rounded-full border-1.5 transition-transform duration-150',
                   i === activeIdx
-                    ? 'border-[#3D3835] shadow-[0_0_0_2px_#F7F4F0,0_0_0_3.5px_#3D3835] scale-110'
-                    : 'border-[#E0D4C2] hover:scale-110'
+                    ? 'border-wool-900 shadow-[0_0_0_2px_#F7F4F0,0_0_0_3.5px_#3D3835] scale-110'
+                    : 'border-oat-200 hover:scale-110'
                 )}
                 style={{ backgroundColor: color.hex }}
                 aria-label={`Color: ${color.name}`}
@@ -136,8 +136,8 @@ function ProductCard({ product }: { product: Product }) {
           className={cn(
             'w-full py-3 rounded-md font-accent text-[0.7rem] tracking-widest uppercase font-medium transition-all',
             isAdding
-              ? 'bg-[#C5B49A] text-[#3D3835]'
-              : 'bg-[#3D3835] text-[#F7F4F0] hover:bg-[#524C48] hover:-translate-y-px'
+              ? 'bg-oat-400 text-wool-900'
+              : 'bg-wool-900 text-warm-white hover:bg-wool-700 hover:-translate-y-px'
           )}
         >
           {isAdding ? 'Adding...' : 'Quick Add'}

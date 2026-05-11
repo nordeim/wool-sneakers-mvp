@@ -37,7 +37,7 @@ export function SizeGuideModal() {
     >
       <div
         className={cn(
-          'absolute inset-0 bg-[#3D3835]/40 backdrop-blur-sm transition-opacity',
+          'absolute inset-0 bg-wool-900/40 backdrop-blur-sm transition-opacity',
           isOpen ? 'opacity-100' : 'opacity-0'
         )}
         onClick={close}
@@ -47,7 +47,7 @@ export function SizeGuideModal() {
         <div
           ref={modalRef}
           className={cn(
-            'bg-[#F7F4F0] rounded-2xl max-w-[600px] w-full max-h-[85vh] overflow-y-auto p-8 transition-all duration-300',
+            'bg-warm-white rounded-2xl max-w-[600px] w-full max-h-[85vh] overflow-y-auto p-8 transition-all duration-300',
             isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           )}
         >
@@ -55,7 +55,7 @@ export function SizeGuideModal() {
             <h2 className="font-display text-[1.5rem]">Size Guide</h2>
             <button
               onClick={close}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#EDE5D8]"
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-oat-100"
               aria-label="Close size guide"
             >
               <svg
@@ -71,18 +71,18 @@ export function SizeGuideModal() {
               </svg>
             </button>
           </div>
-          <p className="text-[#8C8580] text-sm mb-6">
+          <p className="text-wool-300 text-sm mb-6">
             Our sneakers use EU sizing. If you're between sizes, we recommend
             going up half a size for a comfortable fit with wool socks.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#E0D4C2]">
+                <tr className="border-b border-oat-200">
                   {['EU', 'UK', 'US Men', 'US Women', 'CM'].map((h) => (
                     <th
                       key={h}
-                      className="font-accent text-[0.65rem] tracking-widest uppercase text-[#8C8580] py-3 px-2 text-left"
+                      className="font-accent text-[0.65rem] tracking-widest uppercase text-wool-300 py-3 px-2 text-left"
                     >
                       {h}
                     </th>
@@ -91,22 +91,22 @@ export function SizeGuideModal() {
               </thead>
               <tbody>
                 {sizes.map((row) => (
-                  <tr key={row.eu} className="border-b border-[#F5F0E8]">
+                  <tr key={row.eu} className="border-b border-oat-50">
                     <td className="font-accent font-medium py-2.5 px-2">
                       {row.eu}
                     </td>
-                    <td className="text-[#8C8580] py-2.5 px-2">{row.uk}</td>
-                    <td className="text-[#8C8580] py-2.5 px-2">{row.usM}</td>
-                    <td className="text-[#8C8580] py-2.5 px-2">{row.usW}</td>
-                    <td className="text-[#8C8580] py-2.5 px-2">{row.cm}</td>
+                    <td className="text-wool-300 py-2.5 px-2">{row.uk}</td>
+                    <td className="text-wool-300 py-2.5 px-2">{row.usM}</td>
+                    <td className="text-wool-300 py-2.5 px-2">{row.usW}</td>
+                    <td className="text-wool-300 py-2.5 px-2">{row.cm}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="mt-6 p-4 bg-[#F5F0E8] rounded-lg">
-            <p className="text-[0.8rem] text-[#8C8580]">
-              <strong className="text-[#3D3835]">Need help?</strong> Chat with us
+          <div className="mt-6 p-4 bg-oat-50 rounded-lg">
+            <p className="text-[0.8rem] text-wool-300">
+              <strong className="text-wool-900">Need help?</strong> Chat with us
               at hello@mama.sg or visit our store at 28 Tiong Bahru Road.
             </p>
           </div>

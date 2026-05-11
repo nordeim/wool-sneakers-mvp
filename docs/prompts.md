@@ -24,3 +24,17 @@ awesome meticulous job so far. please keep up the good work. now, please meticul
 
 awesome meticulous job so far. please keep up the good work. now, please use the skill 'agents-md' to meticulously plan to update & augment @AGENTS.md and align it with the current codebase. 
 
+---
+
+Awesome meticulous job so far. Please keep up the good work. Now, please meticulously re-evaluate and re-validate the items in 'Final Verdict & Prioritized Recommendations' against the actual codebase to identify/confirm the root causes and to identify the optimal fixes, then meticulously plan to create a detailed remediation plan with ToDo list to apply the validated fixes before proceed to execute it meticulously. And plan to use TDD approach to make changes. 
+
+---
+
+Awesome meticulous job so far. Please keep up the good work. Now, please meticulously review and analyze the following skills/guides against the codebase for compliance. Then re-evaluate and re-validate the 'Minor Suggestions' against 
+the skills and guide documents.  
+  
+1. @TAILWIND_V4_0_COMPREHENSIVE_GUIDE.md  
+2. @skills/react19-ts6-vite8-tailwindv4-mvp/SKILL.md  
+3. @skills/super-frontend-design/SKILL.md  
+4. @skills/super-frontend-design/SKILL.md  
+5. @skills/code-review-and-quality/SKILL.md

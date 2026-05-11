@@ -20,19 +20,19 @@ export function HeroSection() {
         }}
         aria-hidden="true"
       />
-      <div className="container mx-auto max-w-[1280px] px-6 relative z-[2] max-w-[640px] py-16 md:py-0">
-        <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-4">
+      <div className="container-custom relative z-[2] max-w-[640px] py-16 md:py-0">
+        <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-4">
           Singapore-Born Wool Sneakers
         </p>
         <h1
           id="hero-heading"
           className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.15] tracking-tight mb-6"
         >
-          Wool, <em className="italic text-[#B5A288]">Reimagined</em>
+          Wool, <em className="italic text-oat-500">Reimagined</em>
           <br />
           for the City
         </h1>
-        <p className="text-[1.1rem] leading-relaxed text-[#6B6460] max-w-[480px] mb-8">
+        <p className="text-[1.1rem] leading-relaxed text-wool-500 max-w-[480px] mb-8">
           Where natural merino meets modern stride. Engineered for tropical
           warmth, crafted for urban style. The sneaker your feet have been
           waiting for.
@@ -55,10 +55,10 @@ export function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-70 transition-opacity"
         aria-hidden="true"
       >
-        <span className="font-accent text-[0.6rem] tracking-[0.15em] uppercase text-[#B5AFA9]">
+        <span className="font-accent text-[0.6rem] tracking-[0.15em] uppercase text-wool-100">
           Scroll
         </span>
-        <div className="w-px h-10 bg-gradient-to-b from-[#B5AFA9] to-transparent animate-pulse" />
+        <div className="w-px h-10 bg-linear-to-b from-wool-100 to-transparent animate-pulse" />
       </div>
     </section>
   )

@@ -45,9 +45,9 @@ export function NewsletterSection() {
         }}
         aria-hidden="true"
       />
-      <div className="container mx-auto max-w-[1280px] px-6 relative z-[2]">
+      <div className="container-custom relative z-[2]">
         <ScrollReveal>
-          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#8C8580] mb-3">
+          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-300 mb-3">
             Stay in the Loop
           </p>
           <h2
@@ -56,7 +56,7 @@ export function NewsletterSection() {
           >
             Step Into Comfort
           </h2>
-          <p className="text-[#6B6460] max-w-[420px] mx-auto mb-8">
+          <p className="text-wool-500 max-w-[420px] mx-auto mb-8">
             Be the first to know about new drops, Singapore-exclusive
             colourways, and the science behind our wool.
           </p>
@@ -76,7 +76,7 @@ export function NewsletterSection() {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 !bg-white/10 !border-white/20 !text-[#3D3835] !placeholder-[#B5AFA9] focus:!border-[#C5B49A]"
+              className="flex-1 !bg-white/10 !border-white/20 !text-wool-900 !placeholder-wool-100 focus:!border-oat-400"
               disabled={isPending}
             />
             <Button type="submit" size="sm" isLoading={isPending}>
@@ -88,7 +88,7 @@ export function NewsletterSection() {
               className={`mt-4 text-sm font-accent ${
                 state.type === 'error'
                   ? 'text-red-600'
-                  : 'text-[#3D3835]'
+                  : 'text-wool-900'
               }`}
               role="status"
               aria-live="polite"

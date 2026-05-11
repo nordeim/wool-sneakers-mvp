@@ -29,12 +29,12 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
         this.props.fallback ?? (
           <div className="p-8 text-center">
             <h2 className="font-display text-xl mb-2">Something went wrong</h2>
-            <p className="text-[#8C8580] text-sm">
+            <p className="text-wool-300 text-sm">
               Please refresh the page or try again later.
             </p>
             <button
               onClick={() => this.setState({ hasError: false })}
-              className="mt-4 px-6 py-2 bg-[#3D3835] text-[#F7F4F0] rounded-full font-accent text-xs tracking-widest uppercase"
+              className="mt-4 px-6 py-2 bg-wool-900 text-warm-white rounded-full font-accent text-xs tracking-widest uppercase"
             >
               Try Again
             </button>

@@ -6,10 +6,10 @@ export function BrandStorySection() {
   return (
     <section
       id="about"
-      className="py-24 md:py-32 lg:py-40 bg-[#FDFBF8]"
+      className="py-24 md:py-32 lg:py-40 bg-cream"
       aria-labelledby="brand-heading"
     >
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <ScrollReveal>
             <div
@@ -50,14 +50,14 @@ export function BrandStorySection() {
                 </defs>
                 <rect width="400" height="500" fill="url(#wool)" />
               </svg>
-              <span className="absolute bottom-8 left-6 font-accent text-[0.6rem] tracking-[0.15em] uppercase text-[#6B6460] opacity-60">
+              <span className="absolute bottom-8 left-6 font-accent text-[0.6rem] tracking-[0.15em] uppercase text-wool-500 opacity-60">
                 Merino Wool Fibre &middot; 18.5&mu;m
               </span>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <div>
-              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+              <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
                 Our Philosophy
               </p>
               <h2
@@ -66,9 +66,9 @@ export function BrandStorySection() {
               >
                 Born from the belief that comfort should never compromise style
               </h2>
-              <div className="space-y-4 text-[#6B6460] leading-relaxed">
+              <div className="space-y-4 text-wool-500 leading-relaxed">
                 <p>
-                  <strong className="text-[#3D3835] font-medium">MĀMĀ</strong>{' '}
+                  <strong className="text-wool-900 font-medium">MĀMĀ</strong>{' '}
                   was born in Singapore &mdash; a city where tropical heat meets
                   urban ambition. We asked a simple question: why should you
                   choose between the breathability of wool and the functionality
@@ -82,11 +82,11 @@ export function BrandStorySection() {
                 </p>
                 <p>
                   The result: a sneaker that{' '}
-                  <strong className="text-[#3D3835] font-medium">
+                  <strong className="text-wool-900 font-medium">
                     feels like a cloud
                   </strong>{' '}
                   and{' '}
-                  <strong className="text-[#3D3835] font-medium">
+                  <strong className="text-wool-900 font-medium">
                     looks like it belongs
                   </strong>{' '}
                   &mdash; on the MRT, at a meeting, or wandering through Tiong

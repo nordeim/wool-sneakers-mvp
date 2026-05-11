@@ -57,7 +57,7 @@ Built as a reference implementation following modern React and TypeScript standa
 | State | Zustand | ^5.0 | Flat stores with `persist` middleware |
 | Validation | Zod | ^4.4 | Runtime schema validation at boundaries |
 | Testing | Vitest | ^4.1 | jsdom, behavioural tests |
-| Icons | Lucide React | ^0.563 | Tree-shakeable SVG icons |
+| Icons | Lucide React | ^1.14.0 | Tree-shakeable SVG icons |
 | Utilities | clsx + tailwind-merge | latest | Conditional class composition |
 
 ### Routing Map
@@ -220,6 +220,33 @@ if (!result.success) {
 
 ---
 
+## Repurposing for Other Projects
+
+- Copy `src/globals.css` → `@theme` block, change token names, adjust hex values.
+- Replace `src/lib/products.ts` → your own catalog.
+- Update `src/stores/cart.ts` → your own cart logic.
+- Adjust `src/components/ui/` primitives for your brand's look and feel.
+- Swap or extend `src/routes/` → your own pages.
+
+## Singleton Tailwind Palette Snippet (`src/globals.css`)
+
+```css
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #3D3835;
+  --color-surface: #F7F4F0;
+  ...
+  --font-display: 'Cormorant Garamond', serif;
+}
+```
+
+## Tailwind v4 `@theme inline` Gotchas
+
+- `@theme inline` is a **single CSS nestable block**; nested `@keyframes` must be inside it.
+- Custom colours need `--color-` prefix to generate `text-`, `bg-`, `border-` utilities.
+- Spacing tokens use `--spacing-*` (e.g. `--spacing-1: 8px`) for generated `m-1`, `p-1`, etc.
+
 ## Testing
 
 Run the full suite (unit tests):
@@ -296,6 +323,37 @@ Centralizing exports in `src/components/index.ts`, `src/hooks/index.ts`, and `sr
 | `TS2304: Cannot find name 'Props'` | Generic interface name reused | Rename to `ErrorBoundaryProps` |
 | `TS2339: Property 'errors' does not exist on 'ZodError'` | Zod v4 API changed | Use `error.issues` instead of `error.errors` |
 | `routeTree.gen.ts` missing | Forgetting `npx tsr generate` | Always regenerate after route changes |
+| `bg-gradient-to-*` fails in v4 | Tailwind v3 → v4 breaking change | Use `bg-linear-to-*` |
+| `outline-none` not found in v4 | Tailwind v3 → v4 breaking change | Use `outline-hidden` |
+| `flex-shrink-0` not found in v4 | Tailwind v3 → v4 breaking change | Use `shrink-0` |
+| Raw hex in `className` not caught at build | `@theme` token exists but unused | Use `text-wool-900` instead of `text-[#3D3835]` |
+| `container-custom` undefined at runtime | Missing or typo in `@layer utilities` | Check `globals.css` `@layer utilities` |
+| `.env` missing | `.env.example` not copied | Run `cp .env.example .env` |
+
+---
+
+## Performance Budgets (v4)
+
+- **JS bundle** ≤ 100 KB gzipped (`index-[hash].js`)
+- **CSS** ≤ 15 KB gzipped (`index-[hash].css`)
+- **Fonts** Subset `woff2` with `font-display: swap`
+- **Images** Use `loading="lazy"` + `decoding="async"` for below-the-fold
+- **Vite chunking** `manualChunks` for `react`, `tanstack`, `lucide` vendors
+
+## Deployment
+
+1. `npx tsc --noEmit`
+2. `npx vitest run`
+3. `npm run build`
+4. Verify output in `dist/`
+5. Upload `dist/` to Vercel / Netlify / Cloudflare Pages
+
+## Security Checklist
+
+- [ ] No secrets in `index.html` or client bundle
+- [ ] CSP meta tag present
+- [ ] `rel="noopener noreferrer"` on external links
+- [ ] `X-Frame-Options: DENY` via server headers (not just meta)
 
 ---
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useOptimistic, startTransition } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { getProductBySlug } from '@/lib/products'
 import { formatPrice } from '@/lib/format'
@@ -23,7 +23,7 @@ function ProductDetailPage() {
   const [sizeIdx, setSizeIdx] = useState(() =>
     product.sizes.findIndex((s) => s.inStock)
   )
-  const [isAdding, setIsAdding] = useState(false)
+  const [isAdding, setIsAdding] = useOptimistic(false)
 
   const addItem = useCartStore((s) => s.addItem)
   const openCart = useUIStore((s) => s.openCart)
@@ -35,33 +35,35 @@ function ProductDetailPage() {
 
   async function handleAddToCart() {
     if (!selectedSize?.inStock) return
-    setIsAdding(true)
-    await new Promise((r) => setTimeout(r, 500))
-    addItem({
-      productId: product.id,
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      color: selectedColor.name,
-      colorHex: selectedColor.hex,
-      size: selectedSize.label,
-      qty: 1,
-      gradient: product.gradient,
+    startTransition(async () => {
+      setIsAdding(true)
+      await new Promise((r) => setTimeout(r, 500))
+      addItem({
+        productId: product.id,
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        color: selectedColor.name,
+        colorHex: selectedColor.hex,
+        size: selectedSize.label,
+        qty: 1,
+        gradient: product.gradient,
+      })
+      addToast(`${product.name} added to cart`, 'success')
+      setIsAdding(false)
+      openCart()
     })
-    addToast(`${product.name} added to cart`, 'success')
-    setIsAdding(false)
-    openCart()
   }
 
   return (
     <div className="py-12 md:py-20">
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         {/* Breadcrumb */}
         <nav
-          className="flex items-center gap-2 text-[0.75rem] font-accent tracking-wider uppercase text-[#B5AFA9] mb-10"
+          className="flex items-center gap-2 text-[0.75rem] font-accent tracking-wider uppercase text-wool-100 mb-10"
           aria-label="Breadcrumb"
         >
-          <Link to="/" className="hover:text-[#3D3835] transition-colors">
+          <Link to="/" className="hover:text-wool-900 transition-colors">
             Home
           </Link>
           <svg
@@ -76,7 +78,7 @@ function ProductDetailPage() {
           </svg>
           <Link
             to="/products"
-            className="hover:text-[#3D3835] transition-colors"
+            className="hover:text-wool-900 transition-colors"
           >
             Shop
           </Link>
@@ -90,7 +92,7 @@ function ProductDetailPage() {
           >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-[#3D3835]">{product.name}</span>
+          <span className="text-wool-900">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
@@ -117,23 +119,23 @@ function ProductDetailPage() {
           {/* Product Info */}
           <div>
             {product.tag && (
-              <span className="inline-block font-accent text-[0.6rem] tracking-widest uppercase font-semibold bg-[#EDE5D8] text-[#6B6460] px-3 py-1 rounded-full mb-4">
+              <span className="inline-block font-accent text-[0.6rem] tracking-widest uppercase font-semibold bg-oat-100 text-wool-500 px-3 py-1 rounded-full mb-4">
                 {product.tag}
               </span>
             )}
             <h1 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-2">
               {product.name}
             </h1>
-            <p className="text-[#6B6460] mb-6">{product.description}</p>
+            <p className="text-wool-500 mb-6">{product.description}</p>
             <p className="font-accent text-[1.5rem] font-medium mb-8">
               {formatPrice(product.price)}
             </p>
 
             {/* Color Selector */}
             <div className="mb-8">
-              <p className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460] mb-3">
+              <p className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500 mb-3">
                 Color:{' '}
-                <span className="text-[#3D3835] font-medium">
+                <span className="text-wool-900 font-medium">
                   {selectedColor.name}
                 </span>
               </p>
@@ -145,8 +147,8 @@ function ProductDetailPage() {
                     className={cn(
                       'w-10 h-10 rounded-full border-2 transition-all duration-200',
                       i === colorIdx
-                        ? 'border-[#3D3835] shadow-[0_0_0_2px_#F7F4F0,0_0_0_4px_#3D3835]'
-                        : 'border-[#E0D4C2] hover:border-[#6B6460]'
+                        ? 'border-wool-900 shadow-[0_0_0_2px_#F7F4F0,0_0_0_4px_#3D3835]'
+                        : 'border-oat-200 hover:border-wool-500'
                     )}
                     style={{ backgroundColor: color.hex }}
                     aria-label={`Color: ${color.name}`}
@@ -159,15 +161,15 @@ function ProductDetailPage() {
             {/* Size Selector */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-3">
-                <p className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460]">
+                <p className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500">
                   Size:{' '}
-                  <span className="text-[#3D3835] font-medium">
+                  <span className="text-wool-900 font-medium">
                     {selectedSize?.label ?? 'Select'}
                   </span>
                 </p>
                 <button
                   onClick={openSizeGuide}
-                  className="flex items-center gap-1.5 font-accent text-[0.65rem] tracking-widest uppercase text-[#B5AFA9] hover:text-[#6B6460] transition-colors"
+                  className="flex items-center gap-1.5 font-accent text-[0.65rem] tracking-widest uppercase text-wool-100 hover:text-wool-500 transition-colors"
                 >
                   <svg
                     width="14"
@@ -206,10 +208,10 @@ function ProductDetailPage() {
                     className={cn(
                       'py-2.5 rounded-md font-accent text-[0.7rem] tracking-wider font-medium border transition-all duration-200',
                       i === sizeIdx && s.inStock
-                        ? 'border-[#3D3835] bg-[#3D3835] text-[#F7F4F0]'
+                        ? 'border-wool-900 bg-wool-900 text-warm-white'
                         : s.inStock
-                          ? 'border-[#E0D4C2] text-[#6B6460] hover:border-[#3D3835]'
-                          : 'border-[#F5F0E8] text-[#B5AFA9] line-through cursor-not-allowed opacity-40'
+                          ? 'border-oat-200 text-wool-500 hover:border-wool-900'
+                          : 'border-oat-50 text-wool-100 line-through cursor-not-allowed opacity-40'
                     )}
                     aria-label={`EU size ${s.eu}${!s.inStock ? ' (out of stock)' : ''}`}
                     aria-pressed={i === sizeIdx}
@@ -231,40 +233,40 @@ function ProductDetailPage() {
             </Button>
 
             {/* Features / Care */}
-            <div className="mt-10 pt-8 border-t border-[#E0D4C2]">
-              <h3 className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460] mb-4">
+            <div className="mt-10 pt-8 border-t border-oat-200">
+              <h3 className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500 mb-4">
                 Features
               </h3>
               <ul className="space-y-2">
                 {product.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-center gap-3 text-[0.9rem] text-[#6B6460]"
+                    className="flex items-center gap-3 text-[0.9rem] text-wool-500"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C5B49A] flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-oat-400 shrink-0" />
                     {f}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mt-8 pt-8 border-t border-[#E0D4C2]">
-              <h3 className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460] mb-4">
+            <div className="mt-8 pt-8 border-t border-oat-200">
+              <h3 className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500 mb-4">
                 Care Instructions
               </h3>
               <ul className="space-y-2">
                 {product.careInstructions.map((c) => (
                   <li
                     key={c}
-                    className="flex items-center gap-3 text-[0.9rem] text-[#6B6460]"
+                    className="flex items-center gap-3 text-[0.9rem] text-wool-500"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#A8A29E] flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-fog-300 shrink-0" />
                     {c}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mt-8 pt-8 border-t border-[#E0D4C2]">
-              <p className="text-[#6B6460] leading-relaxed">
+            <div className="mt-8 pt-8 border-t border-oat-200">
+              <p className="text-wool-500 leading-relaxed">
                 {product.longDescription}
               </p>
             </div>

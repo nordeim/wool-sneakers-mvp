@@ -74,13 +74,13 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="py-24 md:py-32 lg:py-40 bg-[#F5F0E8]"
+      className="py-24 md:py-32 lg:py-40 bg-oat-50"
       aria-labelledby="features-heading"
     >
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
               Why Wool
             </p>
             <h2
@@ -94,14 +94,14 @@ export function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feat, i) => (
             <ScrollReveal key={feat.title} delay={i * 100}>
-              <article className="p-10 bg-[#FDFBF8] rounded-xl border border-[#E0D4C2] transition-all duration-300 hover:border-[#D4C4B0] hover:shadow-[0_4px_16px_rgba(61,56,53,0.06)]">
-                <div className="w-14 h-14 rounded-xl bg-[#EDE5D8] flex items-center justify-center mb-6 group-hover:bg-[#E0D4C2] transition-colors">
+              <article className="p-10 bg-cream rounded-xl border border-oat-200 transition-all duration-300 hover:border-oat-300 hover:shadow-[0_4px_16px_rgba(61,56,53,0.06)]">
+                <div className="w-14 h-14 rounded-xl bg-oat-100 flex items-center justify-center mb-6 group-hover:bg-oat-200 transition-colors">
                   {feat.icon}
                 </div>
                 <h3 className="font-display text-[1.15rem] mb-3">
                   {feat.title}
                 </h3>
-                <p className="text-[0.9rem] text-[#6B6460] leading-relaxed">
+                <p className="text-[0.9rem] text-wool-500 leading-relaxed">
                   {feat.description}
                 </p>
               </article>

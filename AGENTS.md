@@ -20,7 +20,24 @@ Singapore-born e-commerce front-end for merino wool sneakers. Quiet-luxury aesth
 
 ---
 
-## 2. Agent Workflow
+## 2. Core Operational Mandates
+
+### The Meticulous Approach
+Every task **must** strictly follow this six-phase workflow:
+1. **ANALYZE**: Conduct deep requirement mining; never assume.
+2. **PLAN**: Draft a detailed roadmap with tasks, dependencies, and success criteria.
+3. **VALIDATE**: Present the plan and obtain explicit user approval before writing any code.
+4. **IMPLEMENT**: Build modular, tested, and documented components.
+5. **VERIFY**: Run `tsc --noEmit`, `vitest run`, and `npm run build` before delivery.
+6. **DELIVER**: Provide a complete handoff with usage instructions.
+
+### Anti-Generic Design Philosophy
+- **Distinctive Identity**: Reject "AI slop" and generic templates.
+- **Typography**: Cormorant Garamond (Display), DM Sans (Body), Space Grotesk (Accent labels).
+- **Color Palette**: Use only the bespoke wool-palette tokens defined in `src/globals.css`. No arbitrary hex literals.
+- **Atmosphere**: Quiet luxury—low-saturation tones, generous whitespace (120-160px section padding), and a subtle grain overlay.
+
+### Agent Workflow
 
 1. **Read** the file(s) you'll modify + a similar existing example + related tests before planning.
 2. **Plan** with tasks, dependencies, success criteria. Get explicit user approval before code.
@@ -29,6 +46,21 @@ Singapore-born e-commerce front-end for merino wool sneakers. Quiet-luxury aesth
 ---
 
 ## 3. Implementation Standards
+
+### React & TypeScript
+- **Strict Typing**: Never use `any`. Prefer `interface` for shapes and `type` for unions/intersections.
+- **Naming Conventions**: Use descriptive interface names (e.g., `ErrorBoundaryProps` instead of `Props`).
+- **Async Operations**: All async buttons must handle `isPending` states. `useActionState` requires two generics when using `FormData`: `useActionState<State, FormData>`.
+- **Barrel Exports**: Use `index.ts` files in core directories (`components`, `hooks`, `lib`) to centralize exports and decouple deep paths.
+
+### Validation & Services
+- **Runtime Validation**: Use Zod schemas in `src/lib/schemas.ts` for all form boundaries. 
+    - **Gotcha**: Zod v4 uses `error.issues[]`, not `error.errors[]`.
+- **Service Layer**: Decouple data fetching/logic using typed interfaces in `src/services/`. Consuming components should interact with service contracts (e.g., `ProductService`), not raw data.
+
+### Styling Discipline (Tailwind v4)
+- **Custom Tokens**: Extend `@theme` in `src/globals.css`. 
+- **Anti-Pattern**: Avoid inlining `font-family` strings with double quotes in `className` (e.g., `font-["DM_Sans"]`). This breaks the JSX/Vite parser. Use utility classes defined in the `@layer utilities` block instead.
 
 ### TypeScript Discipline
 - Never `any`. Use `unknown` or explicit types.

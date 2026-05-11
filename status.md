@@ -412,3 +412,198 @@ Key Enhancements to GEMINI.md:
  * Interface Naming: Enforced descriptive naming for component props and state (e.g., ErrorBoundaryProps) to avoid generic naming collisions.
 
 The GEMINI.md file is now a comprehensive source of truth for the project's technical standards and "Anti-Generic" design philosophy.
+
+---
+
+Now I have a comprehensive picture. Let me compile the validation report.  
+  
+Key findings:  
+  
+Accurate:  
+- All quality gates pass (tsc, vitest, build)  
+- 17 tests exist and pass  
+- TypeScript strict mode with no any  
+- All Tailwind v4 via @theme inline with no tailwind.config.js  
+- Zustand stores with persist on cart, no persist on UI  
+- Zod v4 issues[] pattern  
+- useActionState with both generics  
+- Barrel exports in components/index.ts, hooks/index.ts, lib/index.ts  
+- ProductService typed interface  
+- Path aliases in tsconfig  
+- Strict tsconfig: noUnusedLocals, noUnusedParameters, erasableSyntaxOnly, verbatimModuleSyntax  
+- Design tokens in globals.css  
+- ErrorBoundary is a class component with descriptive interface names  
+- Price stored in cents, formatted with Intl.NumberFormat  
+- CSP meta tag present  
+- Component architecture matches  
+- forwardRef used on Button and Input  
+  
+Inaccuracies/Discrepancies:  
+1. useOptimistic not actually used: Docs in CLAUDE.md say useOptimistic for "immediate UI feedback on slow operations (add to cart)" but the actual add-to-cart uses useState for isAdding. This is a code/docs mismatch.  
+2. .env.example referenced but doesn't exist: CLAUDE.md says "cp .env.example .env" but no such file exists.  
+3. Raw hex values in className: Docs say "Only the wool-palette CSS custom properties... No arbitrary hex literals." But many components use className with raw hex values like text-[#6B6460]. However, since these map to the  
+wool-palette custom properties and Tailwind v4 inline arbitrary values work, this is somewhat of a grey area. The docs say "no arbitrary hex literals" but they're used extensively.  
+4. lucide-react version in README: README badge table says ^0.563 but package.json has ^1.14.0.  
+5. @tanstack/router-devtools in package.json: Not mentioned in the README architecture table. Very minor.  
+6. Glimmer of any or enum: None found.  
+7. AGENTS.md at top-level: This seems to be a copy or variation of what was in the system prompt's AGENTS.md, but the on-disk AGENTS.md is the same as the AGENTS.md referenced in the prompt.  
+8. newsletterSchema uses issues[0].message correctly: Checked in NewsletterSection.tsx.  
+  
+Let me write up the validation report.  
+
+Validation Report: CLAUDE.md · GEMINI.md · AGENTS.md · README.md vs. Codebase  
+  
+Executive Summary  
+  
+All quality gates pass: tsc --noEmit ✅, vitest run (17/17) ✅, npm run build ✅.  
+The documents are broadly accurate and highly useful as agent context. A few minor discrepancies exist between documented aspirations and actual code implementation.  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+CLAUDE.md  
+  
+### ✅ Accurate  
+  
+┌─────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────┐  
+│ Claim                                                                                   │ Status                                                                        │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ React 19 StrictMode, useActionState                                                     │ ✅ Confirmed in main.tsx and checkout.tsx/NewsletterSection.tsx               │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ TS strict: noUnusedLocals, noUnusedParameters, erasableSyntaxOnly, verbatimModuleSyntax │ ✅ Confirmed in tsconfig.json                                                 │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Never any                                                                               │ ✅ Zero instances of any in src/                                              │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ useActionState<State, FormData> with both generics                                      │ ✅ Used in checkout.tsx and NewsletterSection.tsx                             │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ forwardRef on reusable form primitives                                                  │ ✅ Button.tsx and Input.tsx both use it                                       │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Zod v4 error.issues[0].message                                                          │ ✅ Used in both checkout.tsx and NewsletterSection.tsx                        │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ ProductService typed interface                                                          │ ✅ src/services/products.ts exports ProductService interface + implementation │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Barrel exports (components/index.ts, hooks/index.ts, lib/index.ts)                      │ ✅ All three exist and are correct                                            │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Design system tokens in globals.css                                                     │ ✅ Complete wool-palette, font, and spacing tokens present                    │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Zustand persist on cart only                                                            │ ✅ cart.ts has persist, ui.ts does not                                        │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Price in SGD cents                                                                      │ ✅ Stored as integer; formatPrice uses Intl.NumberFormat('en-SG')             │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ no enum / namespace                                                                     │ ✅ Only union types used                                                      │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ Quality gate order                                                                      │ ✅ Ran successfully                                                           │  
+├─────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤  
+│ 17 tests across 3 files (cart: 9, ui: 4, utils: 4)                                      │ ✅ Exact match                                                                │  
+└─────────────────────────────────────────────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────┘  
+  
+### ⚠ Discrepancies  
+  
+1. useOptimistic documented but not implemented  
+CLAUDE.md states useOptimistic is "for immediate UI feedback on slow operations (add to cart)". The actual products.$slug.tsx uses useState with an isAdding flag. The docs are aspirational here.  
+2. .env.example referenced but does not exist  
+The "Environment Setup" section says cp .env.example .env. There is no .env.example in the repo. Either add it or remove the instruction.  
+3. Raw hex values in className despite "no arbitrary hex literals" mandate  
+Components like checkout.tsx, products.index.tsx, NewsletterSection.tsx use values like text-[#6B6460], bg-[#3D3835]. These hexes map to wool-palette tokens, but the anti-generic rule says they should use the CSS custom properties  
+instead.  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+GEMINI.md  
+  
+### ✅ Accurate  
+  
+- Stack versions match package.json (React 19, TypeScript 6, Vite 8, Tailwind v4, TanStack Router 1.169, Zustand 5, Zod 4, Vitest 4).  
+- Directory structure and barrel exports match exactly.  
+- error.issues[] zod v4 gotcha confirmed.  
+- Quality gate sequence confirmed passing.  
+- Tailwind font inline anti-pattern warning is correctly preventative; no violations found.  
+  
+### ⚠ Discrepancies  
+  
+1. Slight content drift — The file on disk contains a superset of what is shown in the system prompt's AGENTS.md reference. Both are functionally correct; the duplication between GEMINI.md and AGENTS.md is minimal but they cover 80%   
+of the same ground.  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+AGENTS.md  
+  
+### ✅ Accurate  
+  
+- All "Core Operational Mandates" (ANALYZE → DELIVER) are clearly articulated.  
+- TypeScript discipline section (no any, no enum, import type) matches codebase exactly.  
+- Styling discipline rules match Tailwind v4 configuration.  
+- Common errors table correctly diagnoses real issues the codebase would hit.  
+  
+### ⚠ Discrepancies  
+  
+1. @theme inline is accurate but the anti-pattern warning about font-["DM_Sans"] in className is purely preventative (which is fine). No instances exist.  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+README.md  
+  
+### ✅ Accurate  
+  
+┌──────────────────────────────────────────┬────────────────────────────────────────────────────────────────┐  
+│ Claim                                    │ Verification                                                   │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ 17 tests passed                          │ ✅ Ran: 17 passed                                              │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ Architecture table technologies/versions │ ✅ Match package.json                                          │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ Routing map (7 routes)                   │ ✅ All 7 route files exist in src/routes/                      │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ File hierarchy                           │ ✅ Exact match with find src/ -type f                          │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ State architecture diagram               │ ✅ Conceptually correct (simplified from actual store schemas) │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ Design system tokens                     │ ✅ Exact match with globals.css                                │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ Zod schemas + error extraction           │ ✅ Correctly used                                              │  
+├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────┤  
+│ Test coverage table                      │ ✅ Exact counts                                                │  
+└──────────────────────────────────────────┴────────────────────────────────────────────────────────────────┘  
+  
+### ⚠ Discrepancies  
+  
+1. lucide-react version badge says ^0.563, but package.json has ^1.14.0.  
+2. @tanstack/router-devtools is installed but omitted from the architecture table. Very minor.  
+3. LICENSE link references a LICENSE file that was not checked for existence.  
+4. Environment setup / quick start could mention npx tsr generate more prominently; it's buried in step 2 but the routes won't work without it.  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+Cross-Cutting Observations  
+  
+### Code Quality (Positive)  
+  
+- No any found in src/ (grep confirmed).  
+- forwardRef used for all primitive UI components (Button, Input).  
+- Descriptive interface names: ErrorBoundaryProps, ErrorBoundaryState, ButtonProps, InputProps, CheckoutState, FormState, CartState, UIState, Product, CartItem, Toast.  
+- verbatimModuleSyntax: All imports are clean—no mixing of import and import type.  
+- Zustand selectors: Components use selector subscriptions (e.g., useCartStore((s) => s.addItem)), not getState() in render.  
+  
+### Minor Suggestions  
+  
+1. Add .env.example (even if empty) so the documented cp .env.example .env command works.  
+2. Clarify useOptimistic: Either implement it for the add-to-cart flow or update CLAUDE.md to reflect the current useState + isAdding approach.  
+3. README badge version: Update lucide-react badge to ^1.14.0.  
+4. Hex literal discipline: Either update the "no arbitrary hex literals" rule to acknowledge the current reality, or refactor components to use Tailwind custom color classes (e.g., text-wool-500 via @theme inline colors).  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+Final Verdict  
+  
+┌───────────┬──────────┬────────────────────────────────────────────────────────────────────────────────────────┐  
+│ Document  │ Accuracy │ Notes                                                                                  │  
+├───────────┼──────────┼────────────────────────────────────────────────────────────────────────────────────────┤  
+│ CLAUDE.md │ ~95%     │ Minor aspirational gaps (useOptimistic, .env.example) and hex-literal enforcement gap. │  
+├───────────┼──────────┼────────────────────────────────────────────────────────────────────────────────────────┤  
+│ GEMINI.md │ ~97%     │ Functionally correct; redundant with AGENTS.md.                                        │  
+├───────────┼──────────┼────────────────────────────────────────────────────────────────────────────────────────┤  
+│ AGENTS.md │ ~98%     │ Clean, accurate, and actionable for agents.                                            │  
+├───────────┼──────────┼────────────────────────────────────────────────────────────────────────────────────────┤  
+│ README.md │ ~96%     │ One version badge (lucide-react) is outdated; otherwise excellent.                     │  
+└───────────┴──────────┴────────────────────────────────────────────────────────────────────────────────────────┘  
+  
+All four documents are production-grade onboarding context for agents. The codebase itself is clean, well-typed, and fully aligned with the documented architectural decisions. 

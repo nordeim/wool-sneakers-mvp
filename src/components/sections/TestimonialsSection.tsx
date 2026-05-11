@@ -7,7 +7,7 @@ const testimonials = [
     name: 'Jamie Tan',
     role: 'Product Designer · Tiong Bahru',
     initials: 'J',
-    bg: 'bg-[#D4C4B0]',
+    bg: 'bg-oat-300',
   },
   {
     quote:
@@ -15,7 +15,7 @@ const testimonials = [
     name: 'Rishi Kapoor',
     role: 'Consultant · Marina Bay',
     initials: 'R',
-    bg: 'bg-[#A8A29E]',
+    bg: 'bg-fog-300',
   },
   {
     quote:
@@ -23,20 +23,20 @@ const testimonials = [
     name: 'Lim Wei Ling',
     role: 'Architect · Telok Ayer',
     initials: 'L',
-    bg: 'bg-[#C5B49A]',
+    bg: 'bg-oat-400',
   },
 ] as const
 
 export function TestimonialsSection() {
   return (
     <section
-      className="py-24 md:py-32 lg:py-40 bg-[#FDFBF8]"
+      className="py-24 md:py-32 lg:py-40 bg-cream"
       aria-labelledby="testimonials-heading"
     >
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
               What Singapore Says
             </p>
             <h2
@@ -50,7 +50,7 @@ export function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} delay={i * 100}>
-              <article className="p-8 bg-[#F7F4F0] rounded-xl border border-[#E0D4C2]">
+              <article className="p-8 bg-warm-white rounded-xl border border-oat-200">
                 <div className="flex gap-0.5 mb-4" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }).map((_, j) => (
                     <svg
@@ -66,12 +66,12 @@ export function TestimonialsSection() {
                     </svg>
                   ))}
                 </div>
-                <blockquote className="font-display text-[1.05rem] italic leading-relaxed text-[#6B6460] mb-6">
+                <blockquote className="font-display text-[1.05rem] italic leading-relaxed text-wool-500 mb-6">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-display text-[0.85rem] font-medium text-[#F7F4F0] ${t.bg}`}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center font-display text-[0.85rem] font-medium text-warm-white ${t.bg}`}
                   >
                     {t.initials}
                   </div>
@@ -79,7 +79,7 @@ export function TestimonialsSection() {
                     <strong className="block font-semibold text-[0.85rem]">
                       {t.name}
                     </strong>
-                    <span className="text-[#B5AFA9] text-[0.75rem]">
+                    <span className="text-wool-100 text-[0.75rem]">
                       {t.role}
                     </span>
                   </div>

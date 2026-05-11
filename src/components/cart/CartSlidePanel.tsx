@@ -27,7 +27,7 @@ export function CartSlidePanel() {
     >
       <div
         className={cn(
-          'absolute inset-0 bg-[#3D3835]/35 backdrop-blur-sm transition-opacity',
+          'absolute inset-0 bg-wool-900/35 backdrop-blur-sm transition-opacity',
           isOpen ? 'opacity-100' : 'opacity-0'
         )}
         onClick={close}
@@ -36,7 +36,7 @@ export function CartSlidePanel() {
       <div
         ref={panelRef}
         className={cn(
-          'absolute top-0 right-0 w-[min(420px,90vw)] h-full bg-[#F7F4F0]',
+          'absolute top-0 right-0 w-[min(420px,90vw)] h-full bg-warm-white',
           'flex flex-col transition-transform duration-500 ease-out',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
@@ -57,13 +57,13 @@ function CartPanelContent({ close }: { close: () => void }) {
 
   return (
     <>
-      <div className="flex items-center justify-between px-6 py-5 border-b border-[#E0D4C2]">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-oat-200">
         <h3 className="font-display text-[1.1rem]">
           Your Cart
         </h3>
         <button
           onClick={close}
-          className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-[#EDE5D8] transition-colors"
+          className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-oat-100 transition-colors"
           aria-label="Close cart"
         >
           <svg
@@ -82,7 +82,7 @@ function CartPanelContent({ close }: { close: () => void }) {
 
       <div className="flex-1 overflow-y-auto px-6 py-4">
         {isEmpty ? (
-          <div className="flex flex-col items-center justify-center h-full text-center text-[#B5AFA9]">
+          <div className="flex flex-col items-center justify-center h-full text-center text-wool-100">
             <svg
               width="48"
               height="48"
@@ -99,7 +99,7 @@ function CartPanelContent({ close }: { close: () => void }) {
             <p className="text-[0.9rem] mb-4">Your cart is empty</p>
             <button
               onClick={close}
-              className="font-accent text-xs tracking-widest uppercase text-[#6B6460] border border-[#C5C0B8] rounded-full px-5 py-2.5 hover:border-[#6B6460] hover:text-[#3D3835] transition-all"
+              className="font-accent text-xs tracking-widest uppercase text-wool-500 border border-fog-200 rounded-full px-5 py-2.5 hover:border-wool-500 hover:text-wool-900 transition-all"
             >
               Start Shopping
             </button>
@@ -109,21 +109,21 @@ function CartPanelContent({ close }: { close: () => void }) {
             {items.map((item) => (
               <div
                 key={`${item.productId}-${item.color}-${item.size}`}
-                className="flex gap-4 py-4 border-b border-[#F5F0E8]"
+                className="flex gap-4 py-4 border-b border-oat-50"
               >
                 <div
-                  className="w-[72px] h-[72px] rounded-md flex-shrink-0"
+                  className="w-[72px] h-[72px] rounded-md shrink-0"
                   style={{ background: item.gradient }}
                 />
                 <div className="flex-1 flex flex-col justify-center">
                   <div className="font-display text-[0.95rem]">
                     {item.name}
                   </div>
-                  <div className="text-[0.75rem] text-[#B5AFA9] mb-1.5">
+                  <div className="text-[0.75rem] text-wool-100 mb-1.5">
                     {item.color} &middot; {item.size}
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center border border-[#C5C0B8] rounded-md overflow-hidden">
+                    <div className="flex items-center border border-fog-200 rounded-md overflow-hidden">
                       <button
                         onClick={() =>
                           updateQty(
@@ -133,7 +133,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                             -1
                           )
                         }
-                        className="w-7 h-7 flex items-center justify-center text-[#6B6460] hover:bg-[#EDE5D8] transition-colors"
+                        className="w-7 h-7 flex items-center justify-center text-wool-500 hover:bg-oat-100 transition-colors"
                         aria-label="Decrease quantity"
                       >
                         <svg
@@ -147,7 +147,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                           <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                       </button>
-                      <span className="w-8 text-center font-accent text-[0.75rem] font-medium border-x border-[#C5C0B8] leading-[28px]">
+                      <span className="w-8 text-center font-accent text-[0.75rem] font-medium border-x border-fog-200 leading-[28px]">
                         {item.qty}
                       </span>
                       <button
@@ -159,7 +159,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                             1
                           )
                         }
-                        className="w-7 h-7 flex items-center justify-center text-[#6B6460] hover:bg-[#EDE5D8] transition-colors"
+                        className="w-7 h-7 flex items-center justify-center text-wool-500 hover:bg-oat-100 transition-colors"
                         aria-label="Increase quantity"
                       >
                         <svg
@@ -184,7 +184,7 @@ function CartPanelContent({ close }: { close: () => void }) {
                   onClick={() =>
                     removeItem(item.productId, item.color, item.size)
                   }
-                  className="self-start p-1 text-[#B5AFA9] hover:text-red-500 transition-colors"
+                  className="self-start p-1 text-wool-100 hover:text-red-500 transition-colors"
                   aria-label={`Remove ${item.name}`}
                 >
                   <svg
@@ -206,16 +206,16 @@ function CartPanelContent({ close }: { close: () => void }) {
       </div>
 
       {!isEmpty && (
-        <div className="px-6 py-5 border-t border-[#E0D4C2] bg-[#FDFBF8]">
+        <div className="px-6 py-5 border-t border-oat-200 bg-cream">
           <div className="flex justify-between mb-1.5 text-[0.9rem]">
-            <span className="text-[#6B6460]">Subtotal</span>
+            <span className="text-wool-500">Subtotal</span>
             <span className="font-accent font-semibold">
               {formatPrice(subtotal)}
             </span>
           </div>
           <div className="flex justify-between mb-4 text-[0.8rem]">
-            <span className="text-[#B5AFA9]">Shipping</span>
-            <span className="text-[#C5B49A] font-accent font-medium">
+            <span className="text-wool-100">Shipping</span>
+            <span className="text-oat-400 font-accent font-medium">
               Free
             </span>
           </div>
@@ -223,19 +223,19 @@ function CartPanelContent({ close }: { close: () => void }) {
             <Link
               to="/cart"
               onClick={close}
-              className="flex-1 font-accent text-[0.7rem] tracking-widest uppercase font-medium text-[#3D3835] border border-[#C5C0B8] rounded-full py-3 text-center hover:border-[#6B6460] transition-all"
+              className="flex-1 font-accent text-[0.7rem] tracking-widest uppercase font-medium text-wool-900 border border-fog-200 rounded-full py-3 text-center hover:border-wool-500 transition-all"
             >
               View Cart
             </Link>
             <Link
               to="/checkout"
               onClick={close}
-              className="flex-1 bg-[#3D3835] text-[#F7F4F0] font-accent text-[0.7rem] tracking-widest uppercase font-medium rounded-full py-3 text-center hover:bg-[#524C48] transition-colors"
+              className="flex-1 bg-wool-900 text-warm-white font-accent text-[0.7rem] tracking-widest uppercase font-medium rounded-full py-3 text-center hover:bg-wool-700 transition-colors"
             >
               Checkout
             </Link>
           </div>
-          <p className="text-[0.7rem] text-[#B5AFA9] mt-2 text-center">
+          <p className="text-[0.7rem] text-wool-100 mt-2 text-center">
             {count} {count === 1 ? 'item' : 'items'} in cart
           </p>
         </div>

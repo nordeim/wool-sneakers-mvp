@@ -16,16 +16,16 @@ function ProductsPage() {
 
   return (
     <div className="py-24 md:py-32">
-      <div className="container mx-auto max-w-[1280px] px-6">
+      <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+            <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
               The Collection
             </p>
             <h1 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-4">
               All Sneakers
             </h1>
-            <p className="text-[#6B6460] max-w-[480px] mx-auto">
+            <p className="text-wool-500 max-w-[480px] mx-auto">
               Merino wool sneakers designed for the way you actually live.
             </p>
           </div>
@@ -39,7 +39,7 @@ function ProductsPage() {
             id="sort"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="font-accent text-xs tracking-widest uppercase text-[#6B6460] bg-[#F5F0E8] border border-[#E0D4C2] rounded-full px-4 py-2 outline-none focus:border-[#C5B49A]"
+            className="font-accent text-xs tracking-widest uppercase text-wool-500 bg-oat-50 border border-oat-200 rounded-full px-4 py-2 outline-hidden focus:border-oat-400"
           >
             <option value="featured">Featured</option>
             <option value="price-asc">Price: Low to High</option>
@@ -83,11 +83,11 @@ function ProductsPage() {
                     className="w-[65%] opacity-70 group-hover:opacity-90 group-hover:scale-[1.03] transition-all duration-500"
                   />
                 </div>
-                <div className="p-6 bg-[#FDFBF8]">
+                <div className="p-6 bg-cream">
                   <h3 className="font-display text-[1.2rem] mb-0.5">
                     {prod.name}
                   </h3>
-                  <p className="text-[0.85rem] text-[#B5AFA9] mb-2">
+                  <p className="text-[0.85rem] text-wool-100 mb-2">
                     {prod.description}
                   </p>
                   <span className="font-accent text-[0.95rem] font-medium">

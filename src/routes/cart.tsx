@@ -36,10 +36,10 @@ function CartPage() {
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 01-8 0" />
             </svg>
-            <p className="text-[#6B6460] text-lg mb-6">Your cart is empty</p>
+            <p className="text-wool-500 text-lg mb-6">Your cart is empty</p>
             <Link
               to="/products"
-              className="inline-block bg-[#3D3835] text-[#F7F4F0] font-accent text-xs tracking-widest uppercase font-medium rounded-full px-8 py-3.5 hover:bg-[#524C48] transition-colors"
+              className="inline-block bg-wool-900 text-warm-white font-accent text-xs tracking-widest uppercase font-medium rounded-full px-8 py-3.5 hover:bg-wool-700 transition-colors"
             >
               Browse Collection
             </Link>
@@ -50,10 +50,10 @@ function CartPage() {
               {items.map((item) => (
                 <div
                   key={`${item.productId}-${item.color}-${item.size}`}
-                  className="flex gap-5 py-6 border-b border-[#E0D4C2]"
+                  className="flex gap-5 py-6 border-b border-oat-200"
                 >
                   <div
-                    className="w-[100px] h-[100px] rounded-lg flex-shrink-0"
+                    className="w-[100px] h-[100px] rounded-lg shrink-0"
                     style={{ background: item.gradient }}
                   />
                   <div className="flex-1">
@@ -61,7 +61,7 @@ function CartPage() {
                       <Link
                         to="/products/$slug"
                         params={{ slug: item.slug }}
-                        className="font-display text-[1.1rem] hover:text-[#6B6460] transition-colors"
+                        className="font-display text-[1.1rem] hover:text-wool-500 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -69,7 +69,7 @@ function CartPage() {
                         onClick={() =>
                           removeItem(item.productId, item.color, item.size)
                         }
-                        className="p-1 text-[#B5AFA9] hover:text-red-500 transition-colors"
+                        className="p-1 text-wool-100 hover:text-red-500 transition-colors"
                         aria-label={`Remove ${item.name}`}
                       >
                         <svg
@@ -85,11 +85,11 @@ function CartPage() {
                         </svg>
                       </button>
                     </div>
-                    <p className="text-[0.8rem] text-[#B5AFA9] mb-3">
+                    <p className="text-[0.8rem] text-wool-100 mb-3">
                       {item.color} &middot; {item.size}
                     </p>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center border border-[#E0D4C2] rounded-md overflow-hidden">
+                      <div className="flex items-center border border-oat-200 rounded-md overflow-hidden">
                         <button
                           onClick={() =>
                             updateQty(
@@ -99,7 +99,7 @@ function CartPage() {
                               -1
                             )
                           }
-                          className="w-8 h-8 flex items-center justify-center text-[#3D3835] hover:bg-[#EDE5D8] transition-colors"
+                          className="w-8 h-8 flex items-center justify-center text-wool-900 hover:bg-oat-100 transition-colors"
                           aria-label="Decrease quantity"
                         >
                           <svg
@@ -113,7 +113,7 @@ function CartPage() {
                             <line x1="5" y1="12" x2="19" y2="12" />
                           </svg>
                         </button>
-                        <span className="w-10 text-center font-accent text-sm font-medium border-x border-[#E0D4C2] leading-[32px]">
+                        <span className="w-10 text-center font-accent text-sm font-medium border-x border-oat-200 leading-[32px]">
                           {item.qty}
                         </span>
                         <button
@@ -125,7 +125,7 @@ function CartPage() {
                               1
                             )
                           }
-                          className="w-8 h-8 flex items-center justify-center text-[#3D3835] hover:bg-[#EDE5D8] transition-colors"
+                          className="w-8 h-8 flex items-center justify-center text-wool-900 hover:bg-oat-100 transition-colors"
                           aria-label="Increase quantity"
                         >
                           <svg
@@ -149,34 +149,34 @@ function CartPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 bg-[#FDFBF8] rounded-xl p-8">
+            <div className="mt-8 bg-cream rounded-xl p-8">
               <div className="flex justify-between mb-2">
-                <span className="text-[#6B6460]">Subtotal</span>
+                <span className="text-wool-500">Subtotal</span>
                 <span className="font-accent font-semibold text-lg">
                   {formatPrice(subtotal)}
                 </span>
               </div>
               <div className="flex justify-between mb-6">
-                <span className="text-[#B5AFA9] text-sm">Shipping</span>
-                <span className="text-[#C5B49A] font-accent font-medium text-sm">
+                <span className="text-wool-100 text-sm">Shipping</span>
+                <span className="text-oat-400 font-accent font-medium text-sm">
                   Free
                 </span>
               </div>
               <div className="flex gap-4">
                 <Link
                   to="/checkout"
-                  className="flex-1 bg-[#3D3835] text-[#F7F4F0] font-accent text-xs tracking-widest uppercase font-medium rounded-full py-4 text-center hover:bg-[#524C48] transition-colors"
+                  className="flex-1 bg-wool-900 text-warm-white font-accent text-xs tracking-widest uppercase font-medium rounded-full py-4 text-center hover:bg-wool-700 transition-colors"
                 >
                   Checkout
                 </Link>
                 <button
                   onClick={clearCart}
-                  className="font-accent text-xs tracking-widest uppercase font-medium text-[#6B6460] border border-[#C5C0B8] rounded-full px-6 py-4 hover:border-[#6B6460] hover:text-[#3D3835] transition-all"
+                  className="font-accent text-xs tracking-widest uppercase font-medium text-wool-500 border border-fog-200 rounded-full px-6 py-4 hover:border-wool-500 hover:text-wool-900 transition-all"
                 >
                   Clear
                 </button>
               </div>
-              <p className="text-[0.75rem] text-[#B5AFA9] mt-4 text-center">
+              <p className="text-[0.75rem] text-wool-100 mt-4 text-center">
                 Free 30-day returns &middot; 2-year warranty
               </p>
             </div>

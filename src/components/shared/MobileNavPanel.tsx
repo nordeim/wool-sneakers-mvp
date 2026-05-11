@@ -25,7 +25,7 @@ export function MobileNavPanel() {
     >
       <div
         className={cn(
-          'absolute inset-0 bg-[#3D3835]/30 backdrop-blur-sm transition-opacity',
+          'absolute inset-0 bg-wool-900/30 backdrop-blur-sm transition-opacity',
           isOpen ? 'opacity-100' : 'opacity-0'
         )}
         onClick={close}
@@ -34,14 +34,14 @@ export function MobileNavPanel() {
       <div
         ref={panelRef}
         className={cn(
-          'absolute top-0 right-0 w-[min(320px,85vw)] h-full bg-[#F7F4F0] p-6',
+          'absolute top-0 right-0 w-[min(320px,85vw)] h-full bg-warm-white p-6',
           'transition-transform duration-500 ease-out',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
         <button
           onClick={close}
-          className="ml-auto w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#EDE5D8] transition-colors mb-8"
+          className="ml-auto w-10 h-10 flex items-center justify-center rounded-full hover:bg-oat-100 transition-colors mb-8"
           aria-label="Close menu"
         >
           <svg
@@ -93,7 +93,7 @@ function MobileNavLink({
     <Link
       to={to}
       onClick={onClick}
-      className="font-display text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
+      className="font-display text-[1.8rem] text-wool-900 hover:text-wool-300 transition-colors duration-300"
     >
       {children}
     </Link>
@@ -113,7 +113,7 @@ function MobileAnchorLink({
     <a
       href={href}
       onClick={onClick}
-      className="font-display text-[1.8rem] text-[#3D3835] hover:text-[#8C8580] transition-colors duration-300"
+      className="font-display text-[1.8rem] text-wool-900 hover:text-wool-300 transition-colors duration-300"
     >
       {children}
     </a>

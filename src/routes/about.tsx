@@ -10,24 +10,24 @@ export const Route = createFileRoute('/about')({
 function AboutPage() {
   return (
     <div className="py-24 md:py-32">
-      <div className="container mx-auto max-w-[1280px] px-6 max-w-[720px]">
+      <div className="container-custom max-w-[720px]">
         <ScrollReveal>
-          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-[#B5AFA9] mb-3">
+          <p className="font-accent text-[0.7rem] tracking-[0.12em] uppercase text-wool-100 mb-3">
             Our Story
           </p>
           <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.15] tracking-tight mb-8">
             Wool, born from<br />
-            <em className="italic text-[#B5A288]">necessity</em>
+            <em className="italic text-oat-500">necessity</em>
           </h1>
         </ScrollReveal>
 
         <ScrollReveal delay={100}>
-          <div className="space-y-6 text-[#6B6460] leading-relaxed text-[1.05rem]">
+          <div className="space-y-6 text-wool-500 leading-relaxed text-[1.05rem]">
             <p>
               In 2022, our founder was walking through Orchard Road in July. The
               sneakers were synthetic. The feet were suffocating. The question was
               obvious:{' '}
-              <strong className="text-[#3D3835] font-medium">
+              <strong className="text-wool-900 font-medium">
                 why isn&apos;t anyone making wool sneakers for tropical cities?
               </strong>
             </p>

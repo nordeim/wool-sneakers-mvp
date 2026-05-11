@@ -2,17 +2,17 @@ import { Link } from '@tanstack/react-router'
 
 export function Footer() {
   return (
-    <footer className="bg-[#3D3835] text-[#B5AFA9] py-20 px-6" role="contentinfo">
-      <div className="container mx-auto max-w-[1280px]">
+    <footer className="bg-wool-900 text-wool-100 py-20 px-6" role="contentinfo">
+      <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-16">
           <div>
             <Link
               to="/"
-              className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-[#F7F4F0] inline-block mb-4"
+              className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-warm-white inline-block mb-4"
             >
               MĀMĀ
             </Link>
-            <p className="text-[0.85rem] text-[#B5AFA9] leading-relaxed max-w-[280px]">
+            <p className="text-[0.85rem] text-wool-100 leading-relaxed max-w-[280px]">
               Wool sneakers, born in Singapore. Natural comfort meets urban
               function, one step at a time.
             </p>
@@ -45,7 +45,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <span className="text-[0.75rem] text-[#8C8580]">
+          <span className="text-[0.75rem] text-wool-300">
             &copy; 2025 MĀMĀ. Designed in Singapore. All rights reserved.
           </span>
           <div className="flex gap-3">
@@ -54,7 +54,7 @@ export function Footer() {
               aria-label="Instagram"
               rel="noopener noreferrer"
               target="_blank"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-[#8C8580] hover:border-white/30 hover:bg-white/5 hover:text-[#F7F4F0] transition-all duration-300"
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-wool-300 hover:border-white/30 hover:bg-white/5 hover:text-warm-white transition-all duration-300"
             >
               <svg
                 width="16"
@@ -76,7 +76,7 @@ export function Footer() {
               aria-label="LinkedIn"
               rel="noopener noreferrer"
               target="_blank"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-[#8C8580] hover:border-white/30 hover:bg-white/5 hover:text-[#F7F4F0] transition-all duration-300"
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-wool-300 hover:border-white/30 hover:bg-white/5 hover:text-warm-white transition-all duration-300"
             >
               <svg
                 width="16"
@@ -109,7 +109,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="font-accent text-[0.65rem] tracking-[0.14em] uppercase text-[#B5AFA9] mb-4">
+      <h4 className="font-accent text-[0.65rem] tracking-[0.14em] uppercase text-wool-100 mb-4">
         {title}
       </h4>
       <ul className="flex flex-col gap-2">
@@ -118,14 +118,14 @@ function FooterColumn({
             {link.to.startsWith('/') ? (
               <Link
                 to={link.to}
-                className="text-[0.85rem] text-[#8C8580] hover:text-[#F7F4F0] transition-colors duration-300"
+                className="text-[0.85rem] text-wool-300 hover:text-warm-white transition-colors duration-300"
               >
                 {link.label}
               </Link>
             ) : (
               <a
                 href={link.to}
-                className="text-[0.85rem] text-[#8C8580] hover:text-[#F7F4F0] transition-colors duration-300"
+                className="text-[0.85rem] text-wool-300 hover:text-warm-white transition-colors duration-300"
               >
                 {link.label}
               </a>

@@ -22,11 +22,11 @@ function CheckoutPage() {
   if (isEmpty) {
     return (
       <div className="py-24 text-center">
-        <div className="container mx-auto max-w-[1280px] px-6">
+        <div className="container-custom">
           <h1 className="font-display text-[clamp(2rem,4vw,3rem)] mb-4">
             Your cart is empty
           </h1>
-          <p className="text-[#6B6460] mb-8">
+          <p className="text-wool-500 mb-8">
             Add some sneakers before checking out.
           </p>
           <Link to="/products">
@@ -43,12 +43,12 @@ function CheckoutPage() {
         <h1 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.15] tracking-tight mb-2">
           Checkout
         </h1>
-        <p className="text-[#6B6460] mb-10">
+        <p className="text-wool-500 mb-10">
           Subtotal:{' '}
-          <span className="font-accent font-semibold text-[#3D3835]">
+          <span className="font-accent font-semibold text-wool-900">
             {formatPrice(subtotal)}
           </span>
-          <span className="text-[#C5B49A] ml-2">+ Free shipping</span>
+          <span className="text-oat-400 ml-2">+ Free shipping</span>
         </p>
         <CheckoutForm />
       </div>
@@ -82,7 +82,7 @@ function CheckoutForm() {
   if (state.step === 'confirmation') {
     return (
       <div className="text-center py-16">
-        <div className="w-16 h-16 rounded-full bg-[#EDE5D8] flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 rounded-full bg-oat-100 flex items-center justify-center mx-auto mb-6">
           <svg
             width="32"
             height="32"
@@ -97,7 +97,7 @@ function CheckoutForm() {
           </svg>
         </div>
         <h2 className="font-display text-[2rem] mb-3">Order Confirmed!</h2>
-        <p className="text-[#6B6460] mb-8 max-w-[400px] mx-auto">
+        <p className="text-wool-500 mb-8 max-w-[400px] mx-auto">
           Thank you for your order. You&apos;ll receive a confirmation email
           shortly with tracking details.
         </p>
@@ -111,7 +111,7 @@ function CheckoutForm() {
   return (
     <form action={formAction} className="space-y-8">
       <div>
-        <h2 className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460] mb-6">
+        <h2 className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500 mb-6">
           Shipping Information
         </h2>
         <div className="space-y-4">
@@ -161,11 +161,11 @@ function CheckoutForm() {
         </div>
       </div>
       <div>
-        <h2 className="font-accent text-[0.7rem] tracking-widest uppercase text-[#6B6460] mb-6">
+        <h2 className="font-accent text-[0.7rem] tracking-widest uppercase text-wool-500 mb-6">
           Payment Method
         </h2>
-        <div className="bg-[#FDFBF8] rounded-xl border border-[#E0D4C2] p-6">
-          <p className="text-[0.85rem] text-[#6B6460]">
+        <div className="bg-cream rounded-xl border border-oat-200 p-6">
+          <p className="text-[0.85rem] text-wool-500">
             This is a demo store. No real payment will be processed. Click
             &ldquo;Place Order&rdquo; to simulate checkout.
           </p>
@@ -187,7 +187,7 @@ function CheckoutForm() {
       >
         Place Order
       </Button>
-      <p className="text-[0.7rem] text-[#B5AFA9] text-center">
+      <p className="text-[0.7rem] text-wool-100 text-center">
         By placing this order, you agree to our terms of service. This is a
         simulated checkout.
       </p>

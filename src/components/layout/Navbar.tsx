@@ -21,14 +21,14 @@ export function Navbar() {
       className={cn(
         'sticky top-0 z-[100] transition-all duration-300 backdrop-blur-xl',
         scrolled
-          ? 'bg-[#F7F4F0]/95 border-b border-[#E0D4C2]'
-          : 'bg-[#F7F4F0]/85 border-b border-transparent'
+          ? 'bg-warm-white/95 border-b border-oat-200'
+          : 'bg-warm-white/85 border-b border-transparent'
       )}
     >
-      <div className="container mx-auto max-w-[1280px] px-6 flex items-center justify-between h-[72px]">
+      <div className="container-custom flex items-center justify-between h-[72px]">
         <Link
           to="/"
-          className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-[#3D3835]"
+          className="font-display text-[1.6rem] font-medium tracking-[0.15em] text-wool-900"
         >
           MĀMĀ
         </Link>
@@ -42,13 +42,13 @@ export function Navbar() {
           <NavLink to="/about">About</NavLink>
           <a
             href="#features"
-            className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+            className="font-accent text-[0.72rem] tracking-widest uppercase text-wool-500 hover:text-wool-900 transition-colors duration-300"
           >
             Why Wool
           </a>
           <a
             href="#sg-story"
-            className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+            className="font-accent text-[0.72rem] tracking-widest uppercase text-wool-500 hover:text-wool-900 transition-colors duration-300"
           >
             Singapore
           </a>
@@ -57,18 +57,18 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <button
             onClick={openCart}
-            className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#EDE5D8] transition-colors"
+            className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-oat-100 transition-colors"
             aria-label={`Shopping cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}
           >
             <ShoppingBag
               size={20}
               strokeWidth={1.5}
-              className="text-[#3D3835]"
+              className="text-wool-900"
             />
             <span
               className={cn(
                 'absolute top-0 right-0 min-w-[18px] h-[18px] rounded-full',
-                'bg-[#3D3835] text-[#F7F4F0] font-accent text-[0.55rem] font-semibold',
+                'bg-wool-900 text-warm-white font-accent text-[0.55rem] font-semibold',
                 'flex items-center justify-center px-1',
                 'transition-all duration-300',
                 cartCount > 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'
@@ -80,7 +80,7 @@ export function Navbar() {
 
           <button
             onClick={openMobileNav}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#EDE5D8] transition-colors"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-oat-100 transition-colors"
             aria-label="Open menu"
           >
             <svg
@@ -114,7 +114,7 @@ function NavLink({
   return (
     <Link
       to={to}
-      className="font-accent text-[0.72rem] tracking-widest uppercase text-[#6B6460] hover:text-[#3D3835] transition-colors duration-300"
+      className="font-accent text-[0.72rem] tracking-widest uppercase text-wool-500 hover:text-wool-900 transition-colors duration-300"
     >
       {children}
     </Link>

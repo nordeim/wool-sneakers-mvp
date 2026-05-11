@@ -48,9 +48,9 @@ function ToastItem({
         'flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg',
         'font-accent text-sm tracking-wide',
         'animate-[fade-in-up_500ms_ease-out_forwards]',
-        type === 'success' && 'bg-[#3D3835] text-[#F7F4F0]',
+        type === 'success' && 'bg-wool-900 text-warm-white',
         type === 'error' && 'bg-red-600 text-white',
-        type === 'info' && 'bg-[#E0D4C2] text-[#3D3835]'
+        type === 'info' && 'bg-oat-200 text-wool-900'
       )}
       role="alert"
     >
