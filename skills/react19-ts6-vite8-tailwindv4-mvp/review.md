@@ -416,3 +416,71 @@ And adding to §3 Tailwind v4 Rules:
     is a DRY violation.  
 ```  
   
+---
+
+All quality gates pass. The anti-pattern has been added. Let me provide a final summary.  
+
+Skill Update Complete ✅  
+  
+Final Verification of SKILL.md  
+  
+### Anti-Pattern #19 Added  
+  
+```markdown  
+  | 19 | **Repeated container pattern** (`container mx-auto max-w-[1280px] px-6` ×14 files) | Register `.container-custom` in `@layer utilities` and consume in all layout sections |  
+```  
+  
+### Tailwind v4 Rule Added (§3)  
+  
+```markdown  
+  - **Reuse layout utilities via `@layer utilities`**. If 14 files repeat `container mx-auto max-w-[1280px] px-6`, register `.container-custom` once and use it everywhere.  
+```  
+  
+### Remediation Row #25 Sequential Order  
+  
+┌─────┬─────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────┐  
+│ Row │ Issue                                                           │ Fix                                                                   │  
+├─────┼─────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤  
+│ 25  │ Container layout (max-w-[1280px] px-6) inlined in 14 components │ Register .container-custom in @layer utilities; consume it everywhere │  
+├─────┼─────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤  
+│ 26  │ Add-to-cart without useOptimistic                               │ Use useOptimistic + startTransition for optimistic mutations (§8)     │  
+├─────┼─────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────┤  
+│ 27  │ Raw hex in className (e.g. text-[#3D3835])                      │ Replace with @theme utility; use scripts/validate-colors.sh           │  
+└─────┴─────────────────────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────┘  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+Total Changes to SKILL.md  
+  
+┌───────────────────────────┬───────────────────────────────────────────┐  
+│ Section                   │ Additions                                 │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §3 Tailwind v4 Rules      │ 1 new rule (container standardization)    │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §8 useOptimistic          │ Updated to real-world add-to-cart pattern │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §16 Common Gotchas        │ 5 new entries (v3→v4 renames)             │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §18 Anti-Pattern Card     │ 4 new entries (#16-#19)                   │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §25 Pre-Ship Checklist    │ 1 new item (no raw hex)                   │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §26 Remediation Table     │ 4 new rows (#23-#27)                      │  
+├───────────────────────────┼───────────────────────────────────────────┤  
+│ §27 CI Validation Scripts │ New section with 2 scripts                │  
+└───────────────────────────┴───────────────────────────────────────────┘  
+  
+────────────────────────────────────────────────────────────────────────────────  
+  
+Quality Gates (Project)  
+  
+┌──────────────────┬──────────────────────────────┐  
+│ Gate             │ Result                       │  
+├──────────────────┼──────────────────────────────┤  
+│ npx tsc --noEmit │ ✅ Zero errors               │  
+├──────────────────┼──────────────────────────────┤  
+│ npx vitest run   │ ✅ 17/17 tests pass          │  
+├──────────────────┼──────────────────────────────┤  
+│ npm run build    │ ✅ Production build succeeds │  
+└──────────────────┴──────────────────────────────┘ 
+

@@ -801,6 +801,7 @@ npm test               # Vitest watch mode
 | **`outline-none` in v4** | Use `outline-hidden` |
 | **`flex-shrink-0` in v4** | Use `shrink-0` |
 | **Raw hex in `className`** | Replace with `@theme` utility (e.g. `text-wool-900`) |
+| **`max-w-[1280px] px-6` inlined everywhere** | Register `.container-custom` in `@layer utilities` |
 | **Orphaned `@theme` color** | Defined in `globals.css` but never consumed in UI |
 
 ---
@@ -1290,8 +1291,9 @@ Derived from actual production remediation cycles. Every item below was a real b
 | 22 | Manual `FormData` field checking in action | Use Zod `safeParse(Object.fromEntries(formData))` (§9) | Validation |
 | 23 | Tailwind v3 → v4 utility rename silent fail | Audit: `bg-gradient-to-*` → `bg-linear-to-*`, `outline-none` → `outline-hidden`, `flex-shrink-0` → `shrink-0` | Tailwind v4 |
 | 24 | `@theme` tokens defined but never consumed | Ensure every `--color-*` has a UI consumer; use `scripts/validate-colors.sh` | Design system |
-| 25 | Raw hex in `className` (e.g. `text-[#3D3835]`) | Replace with `@theme` utility (e.g. `text-wool-900`); use `scripts/validate-colors.sh` | Tailwind v4 |
+| 25 | Container layout (`max-w-[1280px] px-6`) inlined in 14 components | Register `.container-custom` in `@layer utilities`; consume it everywhere | Layout DRY |
 | 26 | Add-to-cart without `useOptimistic` | Use `useOptimistic` + `startTransition` for optimistic mutations (§8) | React 19 |
+| 27 | Raw hex in `className` (e.g. `text-[#3D3835]`) | Replace with `@theme` utility (e.g. `text-wool-900`); use `scripts/validate-colors.sh` | Tailwind v4 |
 
 **Test evolution from a real project:** 15 tests (4 files) → 49 tests (10 files) — **+240% coverage** after addressing the issues above.
 
